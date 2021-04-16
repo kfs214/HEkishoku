@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hekishoku-dev-142612-authRole",
+      "UnauthRoleArn": "arn:aws:iam::902346378783:role/amplify-hekishoku-dev-142612-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::902346378783:role/amplify-hekishoku-dev-142612-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-hekishoku-dev-142612-deployment",
+      "UnauthRoleName": "amplify-hekishoku-dev-142612-unauthRole",
+      "StackName": "amplify-hekishoku-dev-142612",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:902346378783:stack/amplify-hekishoku-dev-142612/43b14ca0-9e74-11eb-bc1b-0aafc5384717",
+      "AmplifyAppId": "d3m2i8ku5f85or"
+    }
+  }
+}
