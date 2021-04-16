@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// react
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// material UI
+import { CssBaseline, Button } from "@material-ui/core";
+
+// amplify
+import Amplify from "aws-amplify";
+import awsExports from "./aws-exports";
+Amplify.configure(awsExports);
+
+const App = () => (
+  <React.Fragment>
+    <CssBaseline />
+    <Button variant="contained" color="primary">
+      Primary
+    </Button>
+  </React.Fragment>
+);
 
 export default App;

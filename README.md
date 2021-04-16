@@ -1,3 +1,35 @@
+# What I'm building
+
+A tool to estimate when you'll finish a series of tasks\
+or when you should start the first one.
+
+## input
+
+A list of tasks with this information
+
+- What is the task name?
+- How long will it take?
+- When should you start it?
+- When will you start it?
+
+And your information (optional)
+
+- What time do you usually start working?
+- What time do you usually finish working?
+
+# What I used
+
+- AWS Amplify
+- react
+- dynamoDB
+- graphQL
+- AWS lambda
+- Cognito
+
+---
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
