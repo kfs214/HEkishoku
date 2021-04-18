@@ -1,1 +1,10 @@
-{}
+{
+  "auth": {
+    "hekishokub6990d2b": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
