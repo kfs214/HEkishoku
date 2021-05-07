@@ -30,6 +30,19 @@ And your information (optional)
 
 ---
 
+# Getting Started with AWS Amplify
+
+## Initialize
+
+at project root: HEkishoku\
+`amplify init`\
+`yarn`\
+`yarn start`
+
+---
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
