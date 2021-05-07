@@ -1,29 +1,39 @@
 // react
-import React from "react";
-
-// material UI and theme
-import { CssBaseline, Button } from "@material-ui/core";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import theme from "./theme";
-import "./amplify.css";
+import { useState, useEffect } from "react";
 
 // amplify
-import { withAuthenticator } from "@aws-amplify/ui-react";
-import Amplify from "aws-amplify";
+import Amplify, { Auth, Hub } from "aws-amplify";
 import awsExports from "./aws-exports";
+
+// components
+import SignUp from "./components/SignUp";
 
 Amplify.configure(awsExports);
 
-const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Button variant="contained" color="primary">
-      Primary
-    </Button>
-    <Button variant="contained" color="secondary">
-      Secondary
-    </Button>
-  </MuiThemeProvider>
-);
+const App = () => {
+  const [user, updateUser] = useState(null);
 
-export default withAuthenticator(App);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((currentUser) => updateUser(currentUser))
+      .catch(() => console.log("No signed in user."));
+    Hub.listen("auth", (data) => {
+      switch (data.payload.event) {
+        case "signIn":
+          return updateUser(data.payload.data);
+        case "signOut":
+          return updateUser(null);
+        default:
+          return null;
+      }
+    });
+  }, []);
+
+  if (user) {
+    return <p>logged in.</p>;
+  }
+
+  return <SignUp />;
+};
+
+export default App;
