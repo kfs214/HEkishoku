@@ -1,6 +1,6 @@
 {
   "auth": {
-    "hekishokub6990d2b": {
+    "hekishokubd4d50bd": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
