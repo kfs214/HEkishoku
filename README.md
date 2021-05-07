@@ -1,7 +1,8 @@
 # What I'm building
 
 A tool to estimate when you'll finish a series of tasks\
-or when you should start the first one.
+or when you should start the first one.\
+[Mock-up](https://www.figma.com/proto/LictKjVhR9GPGuSUphOSex/HEkishoku?node-id=6%3A2&scaling=scale-down&page-id=0%3A1)
 
 ## input
 
