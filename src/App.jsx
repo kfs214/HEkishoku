@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 
 // amplify
 import Amplify, { Auth, Hub } from "aws-amplify";
+import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import awsExports from "./aws-exports";
 
 // components
 import SignUp from "./components/SignUp";
+import LoggedIn from "./components/LoggedIn";
 
 Amplify.configure(awsExports);
 
@@ -30,11 +32,11 @@ const App = () => {
     });
   }, []);
 
-  if (user) {
-    return <p>logged in.</p>;
-  }
-
-  return <SignUp />;
+  return (
+    <AmplifyAuthenticator>
+      {user ? <LoggedIn /> : <SignUp />}
+    </AmplifyAuthenticator>
+  );
 };
 
 export default App;
