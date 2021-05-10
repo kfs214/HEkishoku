@@ -1,17 +1,34 @@
+enum Status {
+  CREATED
+  DONE
+}
+
 type Task
   @model
   @auth(
     rules: [
-      { allow: groups, groups: ["Managers"], queries: null, mutations: [create, update, delete] }
-      { allow: groups, groups: ["Employees"], queries: [get, list], mutations: null }
+      { allow: owner }
+      {
+        allow: groups
+        groups: ["Guests"]
+        queries: [get, list]
+        mutations: null
+      }
     ]
   ) {
   id: ID!
   title: String!
   description: String
-  status: String
+  status: Status!
+  spentHour: Float
+  estimatedHour: Float
+  startedAt: AWSDateTime
+  endedBy: AWSDateTime
 }
-type PrivateNote @model @auth(rules: [{ allow: owner }]) {
+
+type UsersSetting @model @auth(rules: [{ allow: owner }]) {
   id: ID!
-  content: String!
+  name: String
+  workFrom: AWSTime
+  workTo: AWSTime
 }
