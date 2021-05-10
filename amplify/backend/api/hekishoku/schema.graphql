@@ -1,0 +1,34 @@
+enum Status {
+  CREATED
+  DONE
+}
+
+type Task
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      {
+        allow: groups
+        groups: ["Guests"]
+        queries: [get, list]
+        mutations: null
+      }
+    ]
+  ) {
+  id: ID!
+  title: String!
+  description: String
+  status: Status!
+  spentHour: Float
+  estimatedHour: Float
+  startedAt: AWSDateTime
+  endedBy: AWSDateTime
+}
+
+type UsersSetting @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String
+  workFrom: AWSTime
+  workTo: AWSTime
+}

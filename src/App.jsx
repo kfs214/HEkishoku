@@ -16,6 +16,7 @@ const App = () => {
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then((currentUser) => updateUser(currentUser))
+      // eslint-disable-next-line no-console
       .catch(() => console.log("No signed in user."));
     Hub.listen("auth", (data) => {
       switch (data.payload.event) {
