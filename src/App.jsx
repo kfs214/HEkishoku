@@ -7,8 +7,9 @@ import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import awsExports from "./aws-exports";
 
 // components
-import SignUp from "./components/SignUp";
+import HEAppBar from "./components/HEAppBar";
 import LoggedIn from "./components/LoggedIn";
+import SignUp from "./components/SignUp";
 
 Amplify.configure(awsExports);
 
@@ -34,6 +35,7 @@ const App = () => {
 
   return (
     <AmplifyAuthenticator>
+      <HEAppBar user={user} />
       {user ? <LoggedIn /> : <SignUp />}
     </AmplifyAuthenticator>
   );
