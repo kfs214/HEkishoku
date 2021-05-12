@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { AppBar, Toolbar, Typography, makeStyles } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import FunChan from "../assets/funchan.svg";
@@ -16,21 +17,24 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const HEAppBar = (user) => {
+const HEAppBar = ({ isLoggedIn = false }) => {
   const classes = useStyles();
 
   return (
     <AppBar position="static">
-      {console.log(user)}
       <Toolbar>
         <img src={FunChan} alt="logo" className={classes.logo} />
         <Typography variant="h6" className={classes.title}>
           {CONSTS.APP_NAME}
         </Typography>
-        {user && <AccountCircle />}
+        {isLoggedIn && <AccountCircle />}
       </Toolbar>
     </AppBar>
   );
+};
+
+HEAppBar.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 export default HEAppBar;

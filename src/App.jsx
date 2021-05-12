@@ -34,10 +34,12 @@ const App = () => {
   }, []);
 
   return (
-    <AmplifyAuthenticator>
-      <HEAppBar user={user} />
-      {user ? <LoggedIn /> : <SignUp />}
-    </AmplifyAuthenticator>
+    <>
+      <HEAppBar isLoggedIn={!!user} />
+      <AmplifyAuthenticator>
+        {user ? <LoggedIn /> : <SignUp />}
+      </AmplifyAuthenticator>
+    </>
   );
 };
 
