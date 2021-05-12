@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { AppBar, Toolbar, Typography, makeStyles } from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
+import UserMenu from "./UserMenu";
 import FunChan from "../assets/funchan.svg";
 import CONSTS from "../consts";
 
@@ -27,7 +27,7 @@ const HEAppBar = ({ isLoggedIn = false }) => {
         <Typography variant="h6" className={classes.title}>
           {CONSTS.APP_NAME}
         </Typography>
-        {isLoggedIn && <AccountCircle />}
+        {isLoggedIn && <UserMenu />}
       </Toolbar>
     </AppBar>
   );
