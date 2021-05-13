@@ -1,5 +1,6 @@
 // react
 import { useState, useEffect } from "react";
+import { Container, Toolbar } from "@material-ui/core";
 
 // amplify
 import Amplify, { Auth, Hub } from "aws-amplify";
@@ -36,9 +37,12 @@ const App = () => {
   return (
     <>
       <HEAppBar isLoggedIn={!!user} />
-      <AmplifyAuthenticator>
-        {user ? <LoggedIn /> : <SignUp />}
-      </AmplifyAuthenticator>
+      <Toolbar />
+      <Container>
+        <AmplifyAuthenticator>
+          {user ? <LoggedIn /> : <SignUp />}
+        </AmplifyAuthenticator>
+      </Container>
     </>
   );
 };
