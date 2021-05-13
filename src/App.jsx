@@ -1,11 +1,15 @@
 // react
 import { useState, useEffect } from "react";
+import { Container, Toolbar } from "@material-ui/core";
 
 // amplify
 import Amplify, { Auth, Hub } from "aws-amplify";
+import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
 import awsExports from "./aws-exports";
 
 // components
+import HEAppBar from "./components/HEAppBar";
+import LoggedIn from "./components/LoggedIn";
 import SignUp from "./components/SignUp";
 
 Amplify.configure(awsExports);
@@ -30,11 +34,17 @@ const App = () => {
     });
   }, []);
 
-  if (user) {
-    return <p>logged in.</p>;
-  }
-
-  return <SignUp />;
+  return (
+    <>
+      <HEAppBar isLoggedIn={!!user} />
+      <Toolbar />
+      <Container>
+        <AmplifyAuthenticator>
+          {user ? <LoggedIn /> : <SignUp />}
+        </AmplifyAuthenticator>
+      </Container>
+    </>
+  );
 };
 
 export default App;
