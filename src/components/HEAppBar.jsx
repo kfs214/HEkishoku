@@ -7,9 +7,11 @@ import {
   Slide,
   useScrollTrigger
 } from "@material-ui/core";
-import UserMenu from "./UserMenu";
-import FunChan from "../assets/funchan.svg";
+import { useState } from "react";
 import CONSTS from "../consts";
+import FunChan from "../assets/funchan.svg";
+import UserMenu from "./UserMenu";
+import Settings from "./Settings";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -36,6 +38,14 @@ HideOnScroll.propTypes = {
 
 const HEAppBar = ({ isLoggedIn }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const contentsUnderLogInCondition = isLoggedIn ? (
+    <>
+      <UserMenu setOpen={setOpen} />
+      <Settings open={open} setOpen={setOpen} />
+    </>
+  ) : null;
 
   return (
     <HideOnScroll>
@@ -45,7 +55,7 @@ const HEAppBar = ({ isLoggedIn }) => {
           <Typography variant="h6" className={classes.title}>
             {CONSTS.APP_NAME}
           </Typography>
-          {isLoggedIn && <UserMenu />}
+          {contentsUnderLogInCondition}
         </Toolbar>
       </AppBar>
     </HideOnScroll>

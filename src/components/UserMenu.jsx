@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import PropTypes from "prop-types";
+
 import { Auth } from "aws-amplify";
 
 import {
@@ -22,7 +24,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const UserMenu = () => {
+const UserMenu = ({ setOpen }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -32,6 +34,11 @@ const UserMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleOpenSettings = () => {
+    handleClose();
+    setOpen(true);
   };
 
   const handleSignOut = async () => {
@@ -55,7 +62,7 @@ const UserMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleOpenSettings}>
           <Typography className={classes.menuTitle}>Settings...</Typography>
           <SettingsIcon />
         </MenuItem>
@@ -66,6 +73,10 @@ const UserMenu = () => {
       </Menu>
     </>
   );
+};
+
+UserMenu.propTypes = {
+  setOpen: PropTypes.func.isRequired
 };
 
 export default UserMenu;
