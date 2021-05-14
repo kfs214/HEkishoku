@@ -10,15 +10,15 @@ import {
   InputAdornment
 } from "@material-ui/core";
 
-// import HETimePicker from "./HETimePicker";
+import HETimePicker from "./HETimePicker";
 import CONSTS from "../consts";
 
 const Settings = ({ open = false, setOpen }) => {
-  // const [workFrom, setWorkFrom] = useState(CONSTS.DEFAULT_WORK_FROM);
-  // const [workTo, setWorkTo] = useState(CONSTS.DEFAULT_WORK_TO);
-  // const [lunchBreakFrom, setLunchBreakFrom] = useState(
-  //   CONSTS.DEFAULT_LUNCH_BREAK_FROM
-  // );
+  const [workFrom, setWorkFrom] = useState(CONSTS.DEFAULT_WORK_FROM);
+  const [workTo, setWorkTo] = useState(CONSTS.DEFAULT_WORK_TO);
+  const [lunchBreakFrom, setLunchBreakFrom] = useState(
+    CONSTS.DEFAULT_LUNCH_BREAK_FROM
+  );
   const [lunchBreakHours, setLunchBreakHours] = useState(
     CONSTS.DEFAULT_LUNCH_BREAK_HOURS
   );
@@ -31,7 +31,7 @@ const Settings = ({ open = false, setOpen }) => {
     <Dialog open={open} onClose={handleClose} aria-labelledby="settings-dialog">
       <DialogContent>
         <DialogTitle>Working hours</DialogTitle>
-        {/* <HETimePicker
+        <HETimePicker
           label="From"
           selectedDate={workFrom}
           handleDateChange={setWorkFrom}
@@ -40,13 +40,13 @@ const Settings = ({ open = false, setOpen }) => {
           label="To"
           selectedDate={workTo}
           handleDateChange={setWorkTo}
-        /> */}
+        />
         <DialogTitle>Lunch break</DialogTitle>
-        {/* <HETimePicker
+        <HETimePicker
           label="From"
           selectedDate={lunchBreakFrom}
           handleDateChange={setLunchBreakFrom}
-        /> */}
+        />
         <Input
           value={lunchBreakHours}
           onChange={(e) => setLunchBreakHours(e.target.value)}

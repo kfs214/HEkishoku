@@ -4,8 +4,9 @@ import { KeyboardTimePicker } from "@material-ui/pickers";
 const HETimePicker = ({ label, selectedDate, handleDateChange }) => (
   <KeyboardTimePicker
     ampm={false}
+    autoOk
     variant="inline"
-    minitStep={15}
+    minutesStep={15}
     label={label}
     value={selectedDate}
     onChange={handleDateChange}

@@ -1,10 +1,9 @@
-// react
 import { useState, useEffect } from "react";
 import { Container, Toolbar } from "@material-ui/core";
-
-// amplify
 import Amplify, { Auth, Hub } from "aws-amplify";
 import { AmplifyAuthenticator } from "@aws-amplify/ui-react";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import awsExports from "./aws-exports";
 
 // components
@@ -35,7 +34,7 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <HEAppBar isLoggedIn={!!user} />
       <Toolbar />
       <Container>
@@ -43,7 +42,7 @@ const App = () => {
           {user ? <LoggedIn /> : <SignUp />}
         </AmplifyAuthenticator>
       </Container>
-    </>
+    </MuiPickersUtilsProvider>
   );
 };
 
