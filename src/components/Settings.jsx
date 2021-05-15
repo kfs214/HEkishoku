@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -27,36 +28,49 @@ const Settings = ({ open = false, setOpen }) => {
     setOpen(false);
   };
 
+  const mb = 1;
+
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="settings-dialog">
       <DialogContent>
         <DialogTitle>Working hours</DialogTitle>
-        <HETimePicker
-          label="From"
-          selectedDate={workFrom}
-          handleDateChange={setWorkFrom}
-        />
-        <HETimePicker
-          label="To"
-          selectedDate={workTo}
-          handleDateChange={setWorkTo}
-        />
+        <Box mb={mb}>
+          <HETimePicker
+            label="From"
+            selectedDate={workFrom}
+            handleDateChange={setWorkFrom}
+          />
+        </Box>
+
+        <Box mb={mb}>
+          <HETimePicker
+            label="To"
+            selectedDate={workTo}
+            handleDateChange={setWorkTo}
+          />
+        </Box>
+
         <DialogTitle>Lunch break</DialogTitle>
-        <HETimePicker
-          label="From"
-          selectedDate={lunchBreakFrom}
-          handleDateChange={setLunchBreakFrom}
-        />
-        <Input
-          value={lunchBreakHours}
-          onChange={(e) => setLunchBreakHours(e.target.value)}
-          endAdornment={<InputAdornment position="end">h</InputAdornment>}
-          aria-describedby="lunch-break-hours"
-        />
+        <Box mb={mb}>
+          <HETimePicker
+            label="From"
+            selectedDate={lunchBreakFrom}
+            handleDateChange={setLunchBreakFrom}
+          />
+        </Box>
+
+        <Box mb={mb}>
+          <Input
+            value={lunchBreakHours}
+            onChange={(e) => setLunchBreakHours(e.target.value)}
+            endAdornment={<InputAdornment position="end">h</InputAdornment>}
+            aria-describedby="lunch-break-hours"
+            fullWidth
+          />
+        </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Save</Button>
+        <Button onClick={handleClose}>Close</Button>
       </DialogActions>
     </Dialog>
   );

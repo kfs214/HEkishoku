@@ -10,6 +10,7 @@ const HETimePicker = ({ label, selectedDate, handleDateChange }) => (
     label={label}
     value={selectedDate}
     onChange={handleDateChange}
+    fullWidth
   />
 );
 
