@@ -38,12 +38,12 @@ HideOnScroll.propTypes = {
 
 const HEAppBar = ({ isLoggedIn }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const contentsUnderLogInCondition = isLoggedIn ? (
     <>
-      <UserMenu setOpen={setOpen} />
-      <Settings open={open} setOpen={setOpen} />
+      <UserMenu setSettingsOpen={setSettingsOpen} />
+      <Settings settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
     </>
   ) : null;
 

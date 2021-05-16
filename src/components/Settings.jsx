@@ -14,7 +14,7 @@ import {
 import HETimePicker from "./HETimePicker";
 import CONSTS from "../consts";
 
-const Settings = ({ open = false, setOpen }) => {
+const Settings = ({ settingsOpen, setSettingsOpen }) => {
   const [workFrom, setWorkFrom] = useState(CONSTS.DEFAULT_WORK_FROM);
   const [workTo, setWorkTo] = useState(CONSTS.DEFAULT_WORK_TO);
   const [lunchBreakFrom, setLunchBreakFrom] = useState(
@@ -25,13 +25,17 @@ const Settings = ({ open = false, setOpen }) => {
   );
 
   const handleClose = () => {
-    setOpen(false);
+    setSettingsOpen(false);
   };
 
   const mb = 1;
 
   return (
-    <Dialog open={open} onClose={handleClose} aria-labelledby="settings-dialog">
+    <Dialog
+      open={settingsOpen}
+      onClose={handleClose}
+      aria-labelledby="settings-dialog"
+    >
       <DialogContent>
         <DialogTitle>Working hours</DialogTitle>
         <Box mb={mb}>
@@ -77,8 +81,8 @@ const Settings = ({ open = false, setOpen }) => {
 };
 
 Settings.propTypes = {
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired
+  settingsOpen: PropTypes.bool.isRequired,
+  setSettingsOpen: PropTypes.func.isRequired
 };
 
 export default Settings;
