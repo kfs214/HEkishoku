@@ -1,5 +1,9 @@
 const CONSTS = {
-  APP_NAME: "HEkishoku"
+  APP_NAME: "HEkishoku",
+  DEFAULT_WORK_FROM: new Date("1970-01-01T09:00:00"),
+  DEFAULT_WORK_TO: new Date("1970-01-01T18:00:00"),
+  DEFAULT_LUNCH_BREAK_FROM: new Date("1970-01-01T12:00:00"),
+  DEFAULT_LUNCH_BREAK_HOURS: 1
 };
 
 export default CONSTS;

@@ -1,13 +1,16 @@
 import { useState } from "react";
 
+import PropTypes from "prop-types";
+
 import { Auth } from "aws-amplify";
 
 import {
   Button,
-  Typography,
-  Menu,
-  MenuItem,
-  makeStyles
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
 } from "@material-ui/core";
 
 import {
@@ -16,22 +19,22 @@ import {
   ExitToApp as ExitToAppIcon
 } from "@material-ui/icons";
 
-const useStyles = makeStyles(() => ({
-  menuTitle: {
-    flexGrow: 1
-  }
-}));
+const UserMenu = ({ setSettingsOpen }) => {
+  const anchor = "right";
 
-const UserMenu = () => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleClick = ({ currentTarget }) => {
-    setAnchorEl(currentTarget);
+  const handleOpenDrawer = () => {
+    setDrawerOpen(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
+  };
+
+  const handleOpenSettings = () => {
+    handleCloseDrawer();
+    setSettingsOpen(true);
   };
 
   const handleSignOut = async () => {
@@ -45,27 +48,40 @@ const UserMenu = () => {
 
   return (
     <>
-      <Button aria-controls="user-menu" aria-haspopup onClick={handleClick}>
+      <Button
+        aria-controls="user-menu-drawer"
+        aria-haspopup
+        onClick={handleOpenDrawer}
+      >
         <AccountCircle style={{ color: "white" }} />
       </Button>
-      <Menu
-        id="user-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+      <Drawer
+        anchor={anchor}
+        id="user-menu-drawer"
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
       >
-        <MenuItem onClick={handleClose}>
-          <Typography className={classes.menuTitle}>Settings...</Typography>
-          <SettingsIcon />
-        </MenuItem>
-        <MenuItem onClick={handleSignOut}>
-          <Typography className={classes.menuTitle}>Sign Out</Typography>
-          <ExitToAppIcon />
-        </MenuItem>
-      </Menu>
+        <List>
+          <ListItem onClick={handleOpenSettings}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Settings..." />
+          </ListItem>
+          <ListItem onClick={handleSignOut}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Sign Out" />
+          </ListItem>
+        </List>
+      </Drawer>
     </>
   );
+};
+
+UserMenu.propTypes = {
+  setSettingsOpen: PropTypes.func.isRequired
 };
 
 export default UserMenu;
