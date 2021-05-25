@@ -8,10 +8,12 @@ import DateFnsUtils from "@date-io/date-fns";
 
 // Apollo
 import { ApolloProvider } from "@apollo/react-hooks";
-import { ApolloLink } from "apollo-link";
-import { createHttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import ApolloClient from "apollo-client";
+import {
+  ApolloLink,
+  createHttpLink,
+  InMemoryCache,
+  ApolloClient
+} from "@apollo/client";
 
 // amplify
 import Amplify, { Auth, Hub } from "aws-amplify";
