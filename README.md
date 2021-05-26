@@ -21,11 +21,11 @@ And your information (optional)
 # What I used
 
 - AWS Amplify
-- react
-- dynamoDB
-- graphQL
-- AWS lambda
 - Cognito
+- AppSync
+- Apollo
+- dynamoDB
+- react
 
 ---
 
