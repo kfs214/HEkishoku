@@ -71,6 +71,8 @@ export const createUsersSetting = /* GraphQL */ `
       name
       workFrom
       workTo
+      lunchBreakFrom
+      lunchBreakHours
       createdAt
       updatedAt
       owner
@@ -87,6 +89,8 @@ export const updateUsersSetting = /* GraphQL */ `
       name
       workFrom
       workTo
+      lunchBreakFrom
+      lunchBreakHours
       createdAt
       updatedAt
       owner
@@ -103,6 +107,8 @@ export const deleteUsersSetting = /* GraphQL */ `
       name
       workFrom
       workTo
+      lunchBreakFrom
+      lunchBreakHours
       createdAt
       updatedAt
       owner

@@ -29,6 +29,8 @@ type Task
 type UsersSetting @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String
-  workFrom: AWSTime
-  workTo: AWSTime
+  workFrom: AWSDateTime
+  workTo: AWSDateTime
+  lunchBreakFrom: AWSDateTime
+  lunchBreakHours: Float
 }

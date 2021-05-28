@@ -49,6 +49,8 @@ export const getUsersSetting = /* GraphQL */ `
       name
       workFrom
       workTo
+      lunchBreakFrom
+      lunchBreakHours
       createdAt
       updatedAt
       owner
@@ -67,6 +69,8 @@ export const listUsersSettings = /* GraphQL */ `
         name
         workFrom
         workTo
+        lunchBreakFrom
+        lunchBreakHours
         createdAt
         updatedAt
         owner
