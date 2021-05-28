@@ -17,7 +17,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Input,
+  TextField,
   InputAdornment
 } from "@material-ui/core";
 
@@ -49,6 +49,8 @@ const Settings = ({ settingsOpen, setSettingsOpen }) => {
 
   console.log({ usersSetting });
 
+  const isValidHours = (float) => float === "" || !(float < 0 || float > 24);
+
   const handleOnChange = (input) => {
     if (usersSetting) {
       update({ variables: { input: { ...input, id: usersSetting.id } } });
@@ -58,10 +60,12 @@ const Settings = ({ settingsOpen, setSettingsOpen }) => {
   };
 
   const handleLunchBreakHoursChange = (e) => {
-    const { value } = e.target;
-    const float = value === "" ? null : value;
+    const value = e.target.value.replace(/[^\d.]/g, "");
 
-    handleOnChange({ lunchBreakHours: float });
+    if (isValidHours(value)) {
+      const float = value === "" ? null : value;
+      handleOnChange({ lunchBreakHours: float });
+    }
   };
 
   const handleClose = () => {
@@ -112,7 +116,7 @@ const Settings = ({ settingsOpen, setSettingsOpen }) => {
         </Box>
 
         <Box mb={mb}>
-          <Input
+          <TextField
             value={usersSetting?.lunchBreakHours}
             onChange={handleLunchBreakHoursChange}
             endAdornment={<InputAdornment position="end">h</InputAdornment>}
