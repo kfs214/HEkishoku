@@ -64,7 +64,7 @@ const App = () => {
           return null;
       }
     });
-  }, []);
+  }, [userSub]);
 
   return (
     <ApolloProvider client={client}>

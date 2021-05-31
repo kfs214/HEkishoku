@@ -29,12 +29,16 @@ type Task
 type UsersSetting
   @model
   @auth(rules: [{ allow: owner }])
-  @key(fields: ["userSub", "updatedAt"]) {
+  @key(
+    name: "settingsByDate"
+    fields: ["userSub", "updatedAt"]
+    queryField: "settingsByDate"
+  ) {
   id: ID!
-  userSub: String!
+  userSub: String
   workFrom: AWSDateTime
   workTo: AWSDateTime
   lunchBreakFrom: AWSDateTime
   lunchBreakHours: Float
-  updatedAt: AWSDateTime!
+  updatedAt: AWSDateTime
 }

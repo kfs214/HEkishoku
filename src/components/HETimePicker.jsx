@@ -16,7 +16,7 @@ const HETimePicker = ({ label, selectedDate, handleDateChange }) => (
 
 HETimePicker.propTypes = {
   label: PropTypes.string.isRequired,
-  selectedDate: PropTypes.instanceOf(Date).isRequired,
+  selectedDate: PropTypes.string.isRequired,
   handleDateChange: PropTypes.func.isRequired
 };
 

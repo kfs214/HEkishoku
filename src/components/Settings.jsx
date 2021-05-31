@@ -23,18 +23,20 @@ import {
 
 // components, graphql, and consts
 import HETimePicker from "./HETimePicker";
-import { listUsersSettings } from "../graphql/queries";
+import { settingsByDate } from "../graphql/queries";
 // import { onUpdateUsersSetting } from "../graphql/subscriptions";
 import { createUsersSetting, updateUsersSetting } from "../graphql/mutations";
 
 import CONSTS from "../consts";
 
-const Settings = ({ settingsOpen, setSettingsOpen }) => {
+const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
   const {
-    data: { listUsersSettings: { items: [usersSetting] = [] } = {} } = {},
+    data: { settingsByDate: { items: [usersSetting] = [] } = {} } = {},
     loading,
     error
-  } = useQuery(gql(listUsersSettings));
+  } = useQuery(gql(settingsByDate), {
+    variables: { userSub, sortDirection: "DESC" }
+  });
 
   const [create] = useMutation(gql(createUsersSetting));
   const [update] = useMutation(gql(updateUsersSetting));
@@ -47,15 +49,20 @@ const Settings = ({ settingsOpen, setSettingsOpen }) => {
     return <p>error!</p>;
   }
 
-  console.log({ usersSetting });
-
   const isValidHours = (float) => float === "" || !(float < 0 || float > 24);
 
   const handleOnChange = (input) => {
     if (usersSetting) {
-      update({ variables: { input: { ...input, id: usersSetting.id } } });
+      update({
+        variables: {
+          input: {
+            ...input,
+            id: usersSetting.id
+          }
+        }
+      });
     } else {
-      create({ variables: { input } });
+      create({ variables: { input: { ...input, userSub } } });
     }
   };
 
@@ -117,11 +124,13 @@ const Settings = ({ settingsOpen, setSettingsOpen }) => {
 
         <Box mb={mb}>
           <TextField
-            value={usersSetting?.lunchBreakHours}
+            value={usersSetting?.lunchBreakHours ?? ""}
             onChange={handleLunchBreakHoursChange}
-            endAdornment={<InputAdornment position="end">h</InputAdornment>}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">h</InputAdornment>
+            }}
             aria-describedby="lunch-break-hours"
-            placeholder={1}
+            placeholder="1"
             type="number"
             fullWidth
           />
@@ -135,6 +144,7 @@ const Settings = ({ settingsOpen, setSettingsOpen }) => {
 };
 
 Settings.propTypes = {
+  userSub: PropTypes.string.isRequired,
   settingsOpen: PropTypes.bool.isRequired,
   setSettingsOpen: PropTypes.func.isRequired
 };
