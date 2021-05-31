@@ -47,19 +47,19 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-  const [user, updateUser] = useState(null);
+  const [userSub, updateUserSub] = useState(null);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
-      .then((currentUser) => updateUser(currentUser))
+      .then((currentUser) => updateUserSub(currentUser.attributes.sub))
       // eslint-disable-next-line no-console
       .catch(() => console.log("No signed in user."));
     Hub.listen("auth", (data) => {
       switch (data.payload.event) {
         case "signIn":
-          return updateUser(data.payload.data);
+          return updateUserSub(data.payload.data.attributes.sub);
         case "signOut":
-          return updateUser(null);
+          return updateUserSub(null);
         default:
           return null;
       }
@@ -69,11 +69,11 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <HEAppBar isLoggedIn={!!user} />
+        <HEAppBar isLoggedIn={!!userSub} userSub={userSub} />
         <Toolbar />
         <Container>
           <AmplifyAuthenticator>
-            {user ? <LoggedIn /> : <SignUp />}
+            {userSub ? <LoggedIn /> : <SignUp />}
           </AmplifyAuthenticator>
         </Container>
       </MuiPickersUtilsProvider>

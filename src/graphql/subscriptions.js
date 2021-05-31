@@ -56,13 +56,13 @@ export const onCreateUsersSetting = /* GraphQL */ `
   subscription OnCreateUsersSetting($owner: String!) {
     onCreateUsersSetting(owner: $owner) {
       id
-      name
+      userSub
       workFrom
       workTo
       lunchBreakFrom
       lunchBreakHours
-      createdAt
       updatedAt
+      createdAt
       owner
     }
   }
@@ -71,13 +71,13 @@ export const onUpdateUsersSetting = /* GraphQL */ `
   subscription OnUpdateUsersSetting($owner: String!) {
     onUpdateUsersSetting(owner: $owner) {
       id
-      name
+      userSub
       workFrom
       workTo
       lunchBreakFrom
       lunchBreakHours
-      createdAt
       updatedAt
+      createdAt
       owner
     }
   }
@@ -86,13 +86,13 @@ export const onDeleteUsersSetting = /* GraphQL */ `
   subscription OnDeleteUsersSetting($owner: String!) {
     onDeleteUsersSetting(owner: $owner) {
       id
-      name
+      userSub
       workFrom
       workTo
       lunchBreakFrom
       lunchBreakHours
-      createdAt
       updatedAt
+      createdAt
       owner
     }
   }

@@ -36,14 +36,18 @@ HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired
 };
 
-const HEAppBar = ({ isLoggedIn }) => {
+const HEAppBar = ({ isLoggedIn, userSub }) => {
   const classes = useStyles();
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const contentsUnderLogInCondition = isLoggedIn ? (
     <>
       <UserMenu setSettingsOpen={setSettingsOpen} />
-      <Settings settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
+      <Settings
+        userSub={userSub}
+        settingsOpen={settingsOpen}
+        setSettingsOpen={setSettingsOpen}
+      />
     </>
   ) : null;
 
@@ -63,7 +67,8 @@ const HEAppBar = ({ isLoggedIn }) => {
 };
 
 HEAppBar.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  userSub: PropTypes.string.isRequired
 };
 
 export default HEAppBar;

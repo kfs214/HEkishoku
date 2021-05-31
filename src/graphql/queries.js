@@ -43,36 +43,46 @@ export const listTasks = /* GraphQL */ `
   }
 `;
 export const getUsersSetting = /* GraphQL */ `
-  query GetUsersSetting($id: ID!) {
-    getUsersSetting(id: $id) {
+  query GetUsersSetting($userSub: String!, $updatedAt: AWSDateTime!) {
+    getUsersSetting(userSub: $userSub, updatedAt: $updatedAt) {
       id
-      name
+      userSub
       workFrom
       workTo
       lunchBreakFrom
       lunchBreakHours
-      createdAt
       updatedAt
+      createdAt
       owner
     }
   }
 `;
 export const listUsersSettings = /* GraphQL */ `
   query ListUsersSettings(
+    $userSub: String
+    $updatedAt: ModelStringKeyConditionInput
     $filter: ModelUsersSettingFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listUsersSettings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsersSettings(
+      userSub: $userSub
+      updatedAt: $updatedAt
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
-        name
+        userSub
         workFrom
         workTo
         lunchBreakFrom
         lunchBreakHours
-        createdAt
         updatedAt
+        createdAt
         owner
       }
       nextToken
