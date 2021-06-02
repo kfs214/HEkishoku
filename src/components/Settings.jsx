@@ -2,12 +2,7 @@
 import PropTypes from "prop-types";
 
 // apollo
-import {
-  gql,
-  useQuery,
-  // , useSubscription
-  useMutation
-} from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 // materialUI
 import {
@@ -24,7 +19,6 @@ import {
 // components, graphql, and consts
 import HETimePicker from "./HETimePicker";
 import { settingsByDate } from "../graphql/queries";
-// import { onUpdateUsersSetting } from "../graphql/subscriptions";
 import { createUsersSetting, updateUsersSetting } from "../graphql/mutations";
 
 import CONSTS from "../consts";
