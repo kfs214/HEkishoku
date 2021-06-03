@@ -24,16 +24,31 @@ import { createUsersSetting, updateUsersSetting } from "../graphql/mutations";
 import CONSTS from "../consts";
 
 const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
+  const settingsByDateQueryVariables = { userSub, sortDirection: "DESC" };
+
   const {
     data: { settingsByDate: { items: [usersSetting] = [] } = {} } = {},
     loading,
     error
   } = useQuery(gql(settingsByDate), {
-    variables: { userSub, sortDirection: "DESC" }
+    variables: settingsByDateQueryVariables
   });
 
-  const [create] = useMutation(gql(createUsersSetting));
   const [update] = useMutation(gql(updateUsersSetting));
+  const [create] = useMutation(gql(createUsersSetting), {
+    update(cache, { data }) {
+      const newSettingFromResponse = data?.createUsersSetting;
+      cache.writeQuery({
+        query: gql(settingsByDate),
+        data: {
+          settingsByDate: {
+            items: [newSettingFromResponse]
+          }
+        },
+        variables: settingsByDateQueryVariables
+      });
+    }
+  });
 
   if (loading) {
     return <p>loading...</p>;
