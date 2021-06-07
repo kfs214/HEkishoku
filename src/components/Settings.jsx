@@ -61,24 +61,34 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
   const isValidHours = (float) => float === "" || !(float < 0 || float > 24);
 
   const handleOnChange = (input) => {
-    const inputWithId = { ...input, id: usersSetting.id };
-
     if (usersSetting) {
       update({
         variables: {
           input: {
-            ...inputWithId
+            ...input,
+            id: usersSetting.id
           }
         },
         optimisticResponse: {
           updateUsersSetting: {
-            ...inputWithId,
+            ...input,
+            id: usersSetting.id,
             __typename: "UsersSetting"
           }
         }
       });
     } else {
-      create({ variables: { input: { ...input, userSub } } });
+      create({
+        variables: { input: { ...input, userSub } },
+        optimisticResponse: {
+          updateUsersSetting: {
+            ...input,
+            userSub,
+            id: userSub,
+            __typename: "UsersSetting"
+          }
+        }
+      });
     }
   };
 
