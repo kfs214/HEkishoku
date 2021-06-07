@@ -61,18 +61,18 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
   const isValidHours = (float) => float === "" || !(float < 0 || float > 24);
 
   const handleOnChange = (input) => {
+    const inputWithId = { ...input, id: usersSetting.id };
+
     if (usersSetting) {
       update({
         variables: {
           input: {
-            ...input,
-            id: usersSetting.id
+            ...inputWithId
           }
         },
         optimisticResponse: {
           updateUsersSetting: {
-            ...input,
-            id: usersSetting.id,
+            ...inputWithId,
             __typename: "UsersSetting"
           }
         }
