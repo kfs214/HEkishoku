@@ -68,6 +68,13 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
             ...input,
             id: usersSetting.id
           }
+        },
+        optimisticResponse: {
+          updateUsersSetting: {
+            ...input,
+            id: usersSetting.id,
+            __typename: "UsersSetting"
+          }
         }
       });
     } else {
