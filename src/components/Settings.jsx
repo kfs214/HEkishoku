@@ -42,6 +42,8 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
         query: gql(settingsByDate),
         data: {
           settingsByDate: {
+            __typename: "ModelUsersSettingConnection",
+            nextToken: null,
             items: [newSettingFromResponse]
           }
         },
@@ -60,8 +62,16 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
 
   const isValidHours = (float) => float === "" || !(float < 0 || float > 24);
 
+  const handleOnEnter = () => {
+    if (usersSetting?.id == null) {
+      create({
+        variables: { input: { userSub } }
+      });
+    }
+  };
+
   const handleOnChange = (input) => {
-    if (usersSetting) {
+    if (usersSetting?.id) {
       update({
         variables: {
           input: {
@@ -78,16 +88,9 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
         }
       });
     } else {
+      // handleOnOpenでcreateに失敗した場合のため
       create({
-        variables: { input: { ...input, userSub } },
-        optimisticResponse: {
-          updateUsersSetting: {
-            ...input,
-            userSub,
-            id: userSub,
-            __typename: "UsersSetting"
-          }
-        }
+        variables: { input: { ...input, userSub } }
       });
     }
   };
@@ -110,6 +113,7 @@ const Settings = ({ userSub, settingsOpen, setSettingsOpen }) => {
   return (
     <Dialog
       open={settingsOpen}
+      onEnter={handleOnEnter}
       onClose={handleClose}
       aria-labelledby="settings-dialog"
     >
