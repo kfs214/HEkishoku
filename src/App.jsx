@@ -22,9 +22,9 @@ import { createAuthLink } from "aws-appsync-auth-link";
 import awsExports from "./aws-exports";
 
 // components
-import HEAppBar from "./components/HEAppBar";
-import LoggedIn from "./components/LoggedIn";
-import SignUp from "./components/SignUp";
+import HEAppBar from "./components/organisms/HEAppBar";
+import LoggedIn from "./components/templates/LoggedIn";
+import SignUp from "./components/templates/SignUp";
 
 Amplify.configure(awsExports);
 

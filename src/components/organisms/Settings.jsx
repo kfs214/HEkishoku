@@ -14,8 +14,8 @@ import {
 } from "@material-ui/core";
 
 // components, graphql, and consts
-import HETimePicker from "./HETimePicker";
-import CONSTS from "../consts";
+import HETimePicker from "../molecules/HETimePicker";
+import CONSTS from "../../consts";
 
 const mb = 1;
 

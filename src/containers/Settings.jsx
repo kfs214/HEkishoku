@@ -7,7 +7,7 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 // components, graphql, and consts
 import { settingsByDate } from "../graphql/queries";
 import { createUsersSetting, updateUsersSetting } from "../graphql/mutations";
-import Settings from "../components/Settings";
+import Settings from "../components/organisms/Settings";
 import CONSTS from "../consts";
 
 const EnhancedSettings = ({ userSub, settingsOpen, setSettingsOpen }) => {
