@@ -68,11 +68,13 @@ export const createUsersSetting = /* GraphQL */ `
   ) {
     createUsersSetting(input: $input, condition: $condition) {
       id
-      name
+      userSub
       workFrom
       workTo
-      createdAt
+      lunchBreakFrom
+      lunchBreakHours
       updatedAt
+      createdAt
       owner
     }
   }
@@ -84,11 +86,13 @@ export const updateUsersSetting = /* GraphQL */ `
   ) {
     updateUsersSetting(input: $input, condition: $condition) {
       id
-      name
+      userSub
       workFrom
       workTo
-      createdAt
+      lunchBreakFrom
+      lunchBreakHours
       updatedAt
+      createdAt
       owner
     }
   }
@@ -100,11 +104,13 @@ export const deleteUsersSetting = /* GraphQL */ `
   ) {
     deleteUsersSetting(input: $input, condition: $condition) {
       id
-      name
+      userSub
       workFrom
       workTo
-      createdAt
+      lunchBreakFrom
+      lunchBreakHours
       updatedAt
+      createdAt
       owner
     }
   }

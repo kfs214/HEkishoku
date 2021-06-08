@@ -11,7 +11,7 @@ import { useState } from "react";
 import CONSTS from "../consts";
 import FunChan from "../assets/funchan.svg";
 import UserMenu from "./UserMenu";
-import Settings from "./Settings";
+import Settings from "../containers/Settings";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -36,14 +36,18 @@ HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired
 };
 
-const HEAppBar = ({ isLoggedIn }) => {
+const HEAppBar = ({ isLoggedIn, userSub = null }) => {
   const classes = useStyles();
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const contentsUnderLogInCondition = isLoggedIn ? (
     <>
       <UserMenu setSettingsOpen={setSettingsOpen} />
-      <Settings settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
+      <Settings
+        userSub={userSub}
+        settingsOpen={settingsOpen}
+        setSettingsOpen={setSettingsOpen}
+      />
     </>
   ) : null;
 
@@ -63,7 +67,12 @@ const HEAppBar = ({ isLoggedIn }) => {
 };
 
 HEAppBar.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  userSub: PropTypes.string
+};
+
+HEAppBar.defaultProps = {
+  userSub: null
 };
 
 export default HEAppBar;

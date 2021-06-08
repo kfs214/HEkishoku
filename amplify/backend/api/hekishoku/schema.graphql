@@ -26,9 +26,19 @@ type Task
   endedBy: AWSDateTime
 }
 
-type UsersSetting @model @auth(rules: [{ allow: owner }]) {
+type UsersSetting
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(
+    name: "settingsByDate"
+    fields: ["userSub", "updatedAt"]
+    queryField: "settingsByDate"
+  ) {
   id: ID!
-  name: String
-  workFrom: AWSTime
-  workTo: AWSTime
+  userSub: String
+  workFrom: AWSDateTime
+  workTo: AWSDateTime
+  lunchBreakFrom: AWSDateTime
+  lunchBreakHours: Float
+  updatedAt: AWSDateTime
 }

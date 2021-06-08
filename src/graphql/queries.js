@@ -46,11 +46,13 @@ export const getUsersSetting = /* GraphQL */ `
   query GetUsersSetting($id: ID!) {
     getUsersSetting(id: $id) {
       id
-      name
+      userSub
       workFrom
       workTo
-      createdAt
+      lunchBreakFrom
+      lunchBreakHours
       updatedAt
+      createdAt
       owner
     }
   }
@@ -64,11 +66,45 @@ export const listUsersSettings = /* GraphQL */ `
     listUsersSettings(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        userSub
         workFrom
         workTo
-        createdAt
+        lunchBreakFrom
+        lunchBreakHours
         updatedAt
+        createdAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const settingsByDate = /* GraphQL */ `
+  query SettingsByDate(
+    $userSub: String
+    $updatedAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUsersSettingFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    settingsByDate(
+      userSub: $userSub
+      updatedAt: $updatedAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userSub
+        workFrom
+        workTo
+        lunchBreakFrom
+        lunchBreakHours
+        updatedAt
+        createdAt
         owner
       }
       nextToken

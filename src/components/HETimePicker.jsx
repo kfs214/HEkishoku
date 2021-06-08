@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { KeyboardTimePicker } from "@material-ui/pickers";
 
-const HETimePicker = ({ label, selectedDate, handleDateChange }) => (
+const HETimePicker = ({ label, selectedDate, onChange }) => (
   <KeyboardTimePicker
     ampm={false}
     autoOk
@@ -9,15 +9,15 @@ const HETimePicker = ({ label, selectedDate, handleDateChange }) => (
     minutesStep={15}
     label={label}
     value={selectedDate}
-    onChange={handleDateChange}
+    onChange={onChange}
     fullWidth
   />
 );
 
 HETimePicker.propTypes = {
   label: PropTypes.string.isRequired,
-  selectedDate: PropTypes.instanceOf(Date).isRequired,
-  handleDateChange: PropTypes.func.isRequired
+  selectedDate: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default HETimePicker;
