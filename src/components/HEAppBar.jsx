@@ -11,7 +11,7 @@ import { useState } from "react";
 import CONSTS from "../consts";
 import FunChan from "../assets/funchan.svg";
 import UserMenu from "./UserMenu";
-import Settings from "./Settings";
+import Settings from "../containers/Settings";
 
 const useStyles = makeStyles(() => ({
   root: {
