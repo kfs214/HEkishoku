@@ -7,6 +7,7 @@ import {
   CheckCircle,
   CheckCircleOutline,
   Delete,
+  DragHandle,
   FileCopy
 } from "@material-ui/icons";
 
@@ -33,6 +34,7 @@ const TaskController = ({ task: { status } }) => (
       <Box display="flex">
         <Delete />
         <FileCopy />
+        <DragHandle color="disabled" />
       </Box>
     </Grid>
   </Grid>
