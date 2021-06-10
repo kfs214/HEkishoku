@@ -17,8 +17,6 @@ import {
 import HETimePicker from "../molecules/HETimePicker";
 import CONSTS from "../../consts";
 
-const mb = 1;
-
 const Settings = ({
   settingsOpen,
   handleOnEnter,
@@ -38,7 +36,7 @@ const Settings = ({
   >
     <DialogContent>
       <DialogTitle>Working hours</DialogTitle>
-      <Box mb={mb}>
+      <Box mb={CONSTS.BOX_M}>
         <HETimePicker
           label="From"
           selectedDate={workFrom}
@@ -48,7 +46,7 @@ const Settings = ({
         />
       </Box>
 
-      <Box mb={mb}>
+      <Box mb={CONSTS.BOX_M}>
         <HETimePicker
           label="To"
           selectedDate={workTo}
@@ -59,7 +57,7 @@ const Settings = ({
       </Box>
 
       <DialogTitle>Lunch break</DialogTitle>
-      <Box mb={mb}>
+      <Box mb={CONSTS.BOX_M}>
         <HETimePicker
           label="From"
           selectedDate={lunchBreakFrom}
@@ -69,7 +67,7 @@ const Settings = ({
         />
       </Box>
 
-      <Box mb={mb}>
+      <Box mb={CONSTS.BOX_M}>
         <TextField
           value={lunchBreakHours}
           onChange={handleLunchBreakHoursChange}
