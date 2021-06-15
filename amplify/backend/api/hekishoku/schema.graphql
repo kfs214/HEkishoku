@@ -17,7 +17,7 @@ type Task
     ]
   ) {
   id: ID!
-  title: String!
+  title: String
   description: String
   status: Status!
   spentHour: Float

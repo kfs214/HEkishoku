@@ -14,24 +14,35 @@ import {
 
 // components, graphql, and consts
 import TaskController from "./TaskController";
+import HETimePicker from "./HETimePicker";
 import CONSTS from "../../consts";
 
-const Task = ({ task }) => (
+const Task = ({
+  id,
+  status,
+  title,
+  estimatedHour,
+  startedAt,
+  endedBy,
+  handleDateTimeChange,
+  handleOnChange,
+  handleEstimatedHourChange
+}) => (
   <Box mb={CONSTS.BOX_M}>
     <Card>
       <CardActions>
-        <TaskController task={task} />
+        <TaskController id={id} status={status} />
       </CardActions>
       <CardContent>
         <Grid container>
-          <Grid container sm={6}>
+          <Grid container item sm={6}>
             <Grid item xs={6}>
               <Box m={CONSTS.BOX_M}>
                 <TextField
                   label="Task Name"
-                  value="value"
-                  onChange={() => {
-                    console.log("changed!");
+                  value={title}
+                  onChange={(e) => {
+                    handleOnChange({ title: e.target.value });
                   }}
                   aria-describedby="task-name"
                   fullWidth
@@ -42,10 +53,8 @@ const Task = ({ task }) => (
               <Box m={CONSTS.BOX_M}>
                 <TextField
                   label="Estimated Time"
-                  value="value"
-                  onChange={() => {
-                    console.log("changed!");
-                  }}
+                  value={estimatedHour}
+                  onChange={handleEstimatedHourChange}
                   aria-describedby="estimated-time"
                   InputProps={{
                     endAdornment: (
@@ -57,30 +66,26 @@ const Task = ({ task }) => (
               </Box>
             </Grid>
           </Grid>
-          <Grid container sm={6}>
+          <Grid container item sm={6}>
             <Grid item xs={6}>
               <Box m={CONSTS.BOX_M}>
-                <TextField
+                <HETimePicker
                   label="Start After"
-                  value="value"
-                  onChange={() => {
-                    console.log("changed!");
+                  selectedDate={startedAt}
+                  onChange={(e) => {
+                    handleDateTimeChange("startedAt", e);
                   }}
-                  aria-describedby="task-name"
-                  fullWidth
                 />
               </Box>
             </Grid>
             <Grid item xs={6}>
               <Box m={CONSTS.BOX_M}>
-                <TextField
+                <HETimePicker
                   label="End By"
-                  value="value"
-                  onChange={() => {
-                    console.log("changed!");
+                  selectedDate={endedBy}
+                  onChange={(e) => {
+                    handleDateTimeChange("endedBy", e);
                   }}
-                  aria-describedby="estimated-time"
-                  fullWidth
                 />
               </Box>
             </Grid>
@@ -92,9 +97,21 @@ const Task = ({ task }) => (
 );
 
 Task.propTypes = {
-  task: PropTypes.shape({
-    status: PropTypes.string.isRequired
-  }).isRequired
+  id: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  estimatedHour: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  startedAt: PropTypes.string,
+  endedBy: PropTypes.string,
+  handleDateTimeChange: PropTypes.func.isRequired,
+  handleOnChange: PropTypes.func.isRequired,
+  handleEstimatedHourChange: PropTypes.func.isRequired
+};
+
+Task.defaultProps = {
+  title: null,
+  startedAt: null,
+  endedBy: null
 };
 
 export default Task;

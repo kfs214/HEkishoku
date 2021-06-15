@@ -17,15 +17,31 @@ import TaskTimer from "./TaskTimer";
 // consts
 import CONSTS from "../../consts";
 
-const CompleteTask = () => <CheckCircleOutline />;
+const CompleteTask = (id) => (
+  <CheckCircleOutline
+    onClick={() => {
+      console.log("completed: ", id);
+    }}
+  />
+);
 
-const ResumeTask = () => <CheckCircle />;
+const ResumeTask = (id) => (
+  <CheckCircle
+    onClick={() => {
+      console.log("resumed: ", id);
+    }}
+  />
+);
 
-const TaskController = ({ task: { status } }) => (
+const TaskController = ({ id, status }) => (
   <Grid container justify="space-between">
     <Grid item>
       <Box display="flex">
-        {status === CONSTS.DONE ? <ResumeTask /> : <CompleteTask />}
+        {status === CONSTS.DONE ? (
+          <ResumeTask id={id} />
+        ) : (
+          <CompleteTask id={id} />
+        )}
         <TaskTimer />
       </Box>
     </Grid>
@@ -41,9 +57,8 @@ const TaskController = ({ task: { status } }) => (
 );
 
 TaskController.propTypes = {
-  task: PropTypes.shape({
-    status: PropTypes.string.isRequired
-  }).isRequired
+  id: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired
 };
 
 export default TaskController;

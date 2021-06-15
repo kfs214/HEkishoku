@@ -1,9 +1,13 @@
+// react
+import PropTypes from "prop-types";
+
 // material UI
 import { Fab, makeStyles } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
-// components
-import Task from "../molecules/Task";
+// utils and components
+import { tasksPropTypes } from "../../utils";
+import Task from "../../containers/Task";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -13,24 +17,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Tasks = () => {
+const Tasks = ({ tasks, create }) => {
   const classes = useStyles();
 
   return (
     <>
-      <Task task={{ status: "DONE" }} />
-      <Task task={{ status: "CREATED" }} />
-      <Task task={{ status: "DONE" }} />
-      <Task task={{ status: "CREATED" }} />
-      <Task task={{ status: "DONE" }} />
-      <Task task={{ status: "CREATED" }} />
-      <Task task={{ status: "DONE" }} />
-      <Task task={{ status: "CREATED" }} />
+      {tasks.map((task) => (
+        <Task task={task} key={task.id} />
+      ))}
+
       <Fab color="primary" aria-label="add" className={classes.fab}>
-        <Add />
+        <Add onClick={create} />
       </Fab>
     </>
   );
+};
+
+Tasks.propTypes = {
+  tasks: PropTypes.arrayOf(tasksPropTypes).isRequired,
+  create: PropTypes.func.isRequired
 };
 
 export default Tasks;

@@ -1,4 +1,4 @@
-import Tasks from "../organisms/Tasks";
+import Tasks from "../../containers/Tasks";
 
 const LoggedIn = () => (
   <>
