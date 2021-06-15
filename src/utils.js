@@ -25,3 +25,21 @@ export const handleHoursChange = ({
     handleOnChange({ [key]: float });
   }
 };
+
+export const handleTaskUpdate = ({ update, input, id }) => {
+  update({
+    variables: {
+      input: {
+        ...input,
+        id
+      }
+    },
+    optimisticResponse: {
+      updateTask: {
+        ...input,
+        id,
+        __typename: "Task"
+      }
+    }
+  });
+};

@@ -4,27 +4,13 @@ import { gql, useMutation } from "@apollo/client";
 // components, graphql, and consts
 import { updateTask } from "../graphql/mutations";
 import Task from "../components/molecules/Task";
-import { tasksPropTypes, handleHoursChange } from "../utils";
+import { tasksPropTypes, handleHoursChange, handleTaskUpdate } from "../utils";
 
 const EhnahcedTask = ({ task }) => {
   const [update] = useMutation(gql(updateTask));
 
   const handleOnChange = (input) => {
-    update({
-      variables: {
-        input: {
-          ...input,
-          id: task.id
-        }
-      },
-      optimisticResponse: {
-        updateTask: {
-          ...input,
-          id: task.id,
-          __typename: "Task"
-        }
-      }
-    });
+    handleTaskUpdate({ update, input, id: task.id });
   };
 
   const handleDateTimeChange = (key, dateTime) => {

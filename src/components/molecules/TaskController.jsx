@@ -1,7 +1,5 @@
-// react
+// libs
 import PropTypes from "prop-types";
-
-// material UI
 import { Box, Grid } from "@material-ui/core";
 import {
   CheckCircle,
@@ -11,36 +9,28 @@ import {
   FileCopy
 } from "@material-ui/icons";
 
-// components
+// components, graphql, and consts
 import TaskTimer from "./TaskTimer";
-
-// consts
 import CONSTS from "../../consts";
 
-const CompleteTask = (id) => (
+const CompleteTask = ({ handleTaskUpdate }) => (
   <CheckCircleOutline
-    onClick={() => {
-      console.log("completed: ", id);
-    }}
+    onClick={() => handleTaskUpdate({ status: CONSTS.DONE })}
   />
 );
 
-const ResumeTask = (id) => (
-  <CheckCircle
-    onClick={() => {
-      console.log("resumed: ", id);
-    }}
-  />
+const ResumeTask = ({ handleTaskUpdate }) => (
+  <CheckCircle onClick={() => handleTaskUpdate({ status: CONSTS.CREATED })} />
 );
 
-const TaskController = ({ id, status }) => (
+const TaskController = ({ handleTaskUpdate, status }) => (
   <Grid container justify="space-between">
     <Grid item>
       <Box display="flex">
         {status === CONSTS.DONE ? (
-          <ResumeTask id={id} />
+          <ResumeTask handleTaskUpdate={handleTaskUpdate} />
         ) : (
-          <CompleteTask id={id} />
+          <CompleteTask handleTaskUpdate={handleTaskUpdate} />
         )}
         <TaskTimer />
       </Box>
@@ -56,8 +46,15 @@ const TaskController = ({ id, status }) => (
   </Grid>
 );
 
+const taskUpdaterPropTypes = {
+  handleTaskUpdate: PropTypes.func.isRequired
+};
+
+CompleteTask.propTypes = taskUpdaterPropTypes;
+ResumeTask.propTypes = taskUpdaterPropTypes;
+
 TaskController.propTypes = {
-  id: PropTypes.string.isRequired,
+  handleTaskUpdate: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired
 };
 

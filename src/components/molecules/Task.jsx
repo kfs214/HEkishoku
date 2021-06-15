@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 // components, graphql, and consts
-import TaskController from "./TaskController";
+import TaskController from "../../containers/TaskController";
 import HETimePicker from "./HETimePicker";
 import CONSTS from "../../consts";
 
