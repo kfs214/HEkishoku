@@ -10,7 +10,7 @@ import { listTasks } from "../graphql/queries";
 import TaskController from "../components/molecules/TaskController";
 import { handleTaskUpdate } from "../utils";
 
-const EnhancedTaskController = ({ id, status }) => {
+const EnhancedTaskController = ({ id, status, handleCopy }) => {
   const [update] = useMutation(gql(updateTask));
   const [deleteTaskMutation, { loading: deletingTask }] = useMutation(
     gql(deleteTask),
@@ -48,6 +48,7 @@ const EnhancedTaskController = ({ id, status }) => {
     <TaskController
       handleTaskUpdate={(input) => handleTaskUpdate({ update, input, id })}
       handleTaskDelete={handleTaskDelete}
+      handleCopy={handleCopy}
       deletingTask={deletingTask}
       status={status}
     />
@@ -56,7 +57,8 @@ const EnhancedTaskController = ({ id, status }) => {
 
 EnhancedTaskController.propTypes = {
   id: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired
+  status: PropTypes.string.isRequired,
+  handleCopy: PropTypes.func.isRequired
 };
 
 export default EnhancedTaskController;

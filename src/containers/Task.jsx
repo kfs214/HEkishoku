@@ -1,3 +1,6 @@
+// react
+import PropTypes from "prop-types";
+
 // apollo
 import { gql, useMutation } from "@apollo/client";
 
@@ -6,7 +9,7 @@ import { updateTask } from "../graphql/mutations";
 import Task from "../components/molecules/Task";
 import { tasksPropTypes, handleHoursChange, handleTaskUpdate } from "../utils";
 
-const EhnahcedTask = ({ task }) => {
+const EhnahcedTask = ({ task, copy }) => {
   const [update] = useMutation(gql(updateTask));
 
   const handleOnChange = (input) => {
@@ -25,6 +28,16 @@ const EhnahcedTask = ({ task }) => {
     });
   };
 
+  const handleCopy = () => {
+    const { title, estimatedHour, startedAt, endedBy } = task;
+    copy({
+      title,
+      estimatedHour,
+      startedAt,
+      endedBy
+    });
+  };
+
   return (
     <Task
       id={task.id}
@@ -36,12 +49,14 @@ const EhnahcedTask = ({ task }) => {
       handleDateTimeChange={handleDateTimeChange}
       handleOnChange={handleOnChange}
       handleEstimatedHourChange={handleEstimatedHourChange}
+      handleCopy={handleCopy}
     />
   );
 };
 
 EhnahcedTask.propTypes = {
-  task: tasksPropTypes.isRequired
+  task: tasksPropTypes.isRequired,
+  copy: PropTypes.func.isRequired
 };
 
 export default EhnahcedTask;

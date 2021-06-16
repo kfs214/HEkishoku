@@ -30,7 +30,8 @@ const TaskController = ({
   status,
   deletingTask,
   handleTaskUpdate,
-  handleTaskDelete
+  handleTaskDelete,
+  handleCopy
 }) => (
   <Grid container justify="space-between">
     <Grid item>
@@ -50,7 +51,7 @@ const TaskController = ({
           handleTaskDelete={handleTaskDelete}
           deletingTask={deletingTask}
         />
-        <FileCopy />
+        <FileCopy onClick={handleCopy} />
         <DragHandle color="disabled" />
       </Box>
     </Grid>
@@ -73,7 +74,8 @@ TaskController.propTypes = {
   handleTaskUpdate: PropTypes.func.isRequired,
   handleTaskDelete: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
-  deletingTask: PropTypes.bool.isRequired
+  deletingTask: PropTypes.bool.isRequired,
+  handleCopy: PropTypes.func.isRequired
 };
 
 export default TaskController;

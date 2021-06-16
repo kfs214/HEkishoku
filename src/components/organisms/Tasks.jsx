@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Tasks = ({ tasks, create }) => {
+const Tasks = ({ tasks, create, copy }) => {
   const classes = useStyles();
 
   return (
     <>
       {tasks.map((task) => (
-        <Task task={task} key={task.id} />
+        <Task task={task} key={task.id} copy={copy} />
       ))}
 
       <Fab color="primary" aria-label="add" className={classes.fab}>
@@ -35,7 +35,8 @@ const Tasks = ({ tasks, create }) => {
 
 Tasks.propTypes = {
   tasks: PropTypes.arrayOf(tasksPropTypes).isRequired,
-  create: PropTypes.func.isRequired
+  create: PropTypes.func.isRequired,
+  copy: PropTypes.func.isRequired
 };
 
 export default Tasks;

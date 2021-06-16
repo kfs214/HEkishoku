@@ -31,19 +31,27 @@ const EnhancedTasks = () => {
     }
   });
 
-  const handleCreate = () => {
-    const variables = {
-      variables: {
-        input: {
-          title: "",
-          status: CONSTS.CREATED
-        }
-      }
-    };
-    create(variables);
+  const initialInput = {
+    title: "",
+    status: CONSTS.CREATED
   };
 
-  return <Tasks tasks={tasks} create={handleCreate} />;
+  const handleCreate = () => {
+    create({ variables: { input: initialInput } });
+  };
+
+  const handleCopy = (input) => {
+    create({
+      variables: {
+        input: {
+          ...initialInput,
+          ...input
+        }
+      }
+    });
+  };
+
+  return <Tasks tasks={tasks} create={handleCreate} copy={handleCopy} />;
 };
 
 export default EnhancedTasks;

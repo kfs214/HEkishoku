@@ -26,12 +26,13 @@ const Task = ({
   endedBy,
   handleDateTimeChange,
   handleOnChange,
-  handleEstimatedHourChange
+  handleEstimatedHourChange,
+  handleCopy
 }) => (
   <Box mb={CONSTS.BOX_M}>
     <Card>
       <CardActions>
-        <TaskController id={id} status={status} />
+        <TaskController id={id} status={status} handleCopy={handleCopy} />
       </CardActions>
       <CardContent>
         <Grid container>
@@ -105,7 +106,8 @@ Task.propTypes = {
   endedBy: PropTypes.string,
   handleDateTimeChange: PropTypes.func.isRequired,
   handleOnChange: PropTypes.func.isRequired,
-  handleEstimatedHourChange: PropTypes.func.isRequired
+  handleEstimatedHourChange: PropTypes.func.isRequired,
+  handleCopy: PropTypes.func.isRequired
 };
 
 Task.defaultProps = {
