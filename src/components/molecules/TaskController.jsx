@@ -1,6 +1,6 @@
 // libs
 import PropTypes from "prop-types";
-import { Box, Grid } from "@material-ui/core";
+import { Box, CircularProgress, Grid } from "@material-ui/core";
 import {
   CheckCircle,
   CheckCircleOutline,
@@ -23,7 +23,15 @@ const ResumeTask = ({ handleTaskUpdate }) => (
   <CheckCircle onClick={() => handleTaskUpdate({ status: CONSTS.CREATED })} />
 );
 
-const TaskController = ({ handleTaskUpdate, status }) => (
+const DeleteTask = ({ handleTaskDelete, deletingTask }) =>
+  deletingTask ? <CircularProgress /> : <Delete onClick={handleTaskDelete} />;
+
+const TaskController = ({
+  status,
+  deletingTask,
+  handleTaskUpdate,
+  handleTaskDelete
+}) => (
   <Grid container justify="space-between">
     <Grid item>
       <Box display="flex">
@@ -38,7 +46,10 @@ const TaskController = ({ handleTaskUpdate, status }) => (
 
     <Grid item>
       <Box display="flex">
-        <Delete />
+        <DeleteTask
+          handleTaskDelete={handleTaskDelete}
+          deletingTask={deletingTask}
+        />
         <FileCopy />
         <DragHandle color="disabled" />
       </Box>
@@ -53,9 +64,16 @@ const taskUpdaterPropTypes = {
 CompleteTask.propTypes = taskUpdaterPropTypes;
 ResumeTask.propTypes = taskUpdaterPropTypes;
 
+DeleteTask.propTypes = {
+  deletingTask: PropTypes.bool.isRequired,
+  handleTaskDelete: PropTypes.func.isRequired
+};
+
 TaskController.propTypes = {
   handleTaskUpdate: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired
+  handleTaskDelete: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
+  deletingTask: PropTypes.bool.isRequired
 };
 
 export default TaskController;
