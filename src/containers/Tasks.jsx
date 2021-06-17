@@ -14,7 +14,10 @@ const EnhancedTasks = () => {
     // error
   } = useQuery(gql(listTasks));
 
-  const [create] = useMutation(gql(createTask), {
+  const [
+    create,
+    { loading: creatingTask, error: failedToCreateTask }
+  ] = useMutation(gql(createTask), {
     update(cache, { data }) {
       const newTaskFromResponse = data?.createTask;
       const existingTasks = cache.readQuery({ query: gql(listTasks) });
@@ -51,7 +54,15 @@ const EnhancedTasks = () => {
     });
   };
 
-  return <Tasks tasks={tasks} create={handleCreate} copy={handleCopy} />;
+  return (
+    <Tasks
+      tasks={tasks}
+      create={handleCreate}
+      copy={handleCopy}
+      creatingTask={creatingTask}
+      failedToCreateTask={failedToCreateTask !== undefined}
+    />
+  );
 };
 
 export default EnhancedTasks;

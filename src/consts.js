@@ -6,7 +6,8 @@ const CONSTS = {
   DEFAULT_LUNCH_BREAK_HOURS: 1,
   CREATED: "CREATED",
   DONE: "DONE",
-  BOX_M: 1
+  BOX_M: 1,
+  ICON_HEIGHT: 24
 };
 
 export default CONSTS;

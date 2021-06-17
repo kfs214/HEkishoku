@@ -24,7 +24,11 @@ const ResumeTask = ({ handleTaskUpdate }) => (
 );
 
 const DeleteTask = ({ handleTaskDelete, deletingTask }) =>
-  deletingTask ? <CircularProgress /> : <Delete onClick={handleTaskDelete} />;
+  deletingTask ? (
+    <CircularProgress size={CONSTS.ICON_HEIGHT} />
+  ) : (
+    <Delete onClick={handleTaskDelete} />
+  );
 
 const TaskController = ({
   status,

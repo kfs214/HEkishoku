@@ -1,8 +1,9 @@
 // react
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 // material UI
-import { Fab, makeStyles } from "@material-ui/core";
+import { CircularProgress, Fab, Tooltip, makeStyles } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
 // utils and components
@@ -17,8 +18,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Tasks = ({ tasks, create, copy }) => {
+const Tasks = ({ tasks, create, copy, creatingTask, failedToCreateTask }) => {
   const classes = useStyles();
+  const [showError, setShowError] = useState(failedToCreateTask);
+  const hideError = () => {
+    setShowError(false);
+  };
 
   return (
     <>
@@ -26,9 +31,16 @@ const Tasks = ({ tasks, create, copy }) => {
         <Task task={task} key={task.id} copy={copy} />
       ))}
 
-      <Fab color="primary" aria-label="add" className={classes.fab}>
-        <Add onClick={create} />
-      </Fab>
+      <Tooltip
+        open={showError}
+        title="Something went wrong. Please try again..."
+        onClose={hideError}
+        onOpen={hideError}
+      >
+        <Fab color="primary" aria-label="add" className={classes.fab}>
+          {creatingTask ? <CircularProgress /> : <Add onClick={create} />}
+        </Fab>
+      </Tooltip>
     </>
   );
 };
@@ -36,7 +48,9 @@ const Tasks = ({ tasks, create, copy }) => {
 Tasks.propTypes = {
   tasks: PropTypes.arrayOf(tasksPropTypes).isRequired,
   create: PropTypes.func.isRequired,
-  copy: PropTypes.func.isRequired
+  copy: PropTypes.func.isRequired,
+  creatingTask: PropTypes.bool.isRequired,
+  failedToCreateTask: PropTypes.bool.isRequired
 };
 
 export default Tasks;
