@@ -8,10 +8,10 @@ import {
   useScrollTrigger
 } from "@material-ui/core";
 import { useState } from "react";
-import CONSTS from "../consts";
-import FunChan from "../assets/funchan.svg";
+import CONSTS from "../../consts";
+import FunChan from "../../assets/funchan.svg";
 import UserMenu from "./UserMenu";
-import Settings from "../containers/Settings";
+import Settings from "../../containers/Settings";
 
 const useStyles = makeStyles(() => ({
   root: {

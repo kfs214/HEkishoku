@@ -1,6 +1,8 @@
+import Tasks from "../../containers/Tasks";
+
 const LoggedIn = () => (
   <>
-    <p>logged in.</p>
+    <Tasks />
   </>
 );
 

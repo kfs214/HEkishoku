@@ -7,7 +7,8 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 // components, graphql, and consts
 import { settingsByDate } from "../graphql/queries";
 import { createUsersSetting, updateUsersSetting } from "../graphql/mutations";
-import Settings from "../components/Settings";
+import Settings from "../components/organisms/Settings";
+import { handleHoursChange } from "../utils";
 import CONSTS from "../consts";
 
 const EnhancedSettings = ({ userSub, settingsOpen, setSettingsOpen }) => {
@@ -87,12 +88,12 @@ const EnhancedSettings = ({ userSub, settingsOpen, setSettingsOpen }) => {
   };
 
   const handleLunchBreakHoursChange = (e) => {
-    const value = e.target.value.replace(/[^\d.]/g, "");
-
-    if (isValidHours(value)) {
-      const float = value === "" ? null : value;
-      handleOnChange({ lunchBreakHours: float });
-    }
+    handleHoursChange({
+      e,
+      key: "lunchBreakHours",
+      handleOnChange,
+      validator: isValidHours
+    });
   };
 
   const handleClose = () => {
