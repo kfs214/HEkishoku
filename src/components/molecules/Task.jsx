@@ -25,6 +25,7 @@ const Task = ({
   startedAt,
   endedBy,
   handleDateTimeChange,
+  resetDateTime,
   handleOnChange,
   handleEstimatedHourChange,
   handleCopy
@@ -73,8 +74,11 @@ const Task = ({
                 <HEDateTimePicker
                   label="Start After"
                   selectedDate={startedAt}
+                  resetDateTime={() => {
+                    resetDateTime(CONSTS.STARTED_AT);
+                  }}
                   onChange={(e) => {
-                    handleDateTimeChange("startedAt", e);
+                    handleDateTimeChange(CONSTS.STARTED_AT, e);
                   }}
                 />
               </Box>
@@ -84,8 +88,11 @@ const Task = ({
                 <HEDateTimePicker
                   label="End By"
                   selectedDate={endedBy}
+                  resetDateTime={() => {
+                    resetDateTime(CONSTS.ENDED_BY);
+                  }}
                   onChange={(e) => {
-                    handleDateTimeChange("endedBy", e);
+                    handleDateTimeChange(CONSTS.ENDED_BY, e);
                   }}
                 />
               </Box>
@@ -105,6 +112,7 @@ Task.propTypes = {
   startedAt: PropTypes.string,
   endedBy: PropTypes.string,
   handleDateTimeChange: PropTypes.func.isRequired,
+  resetDateTime: PropTypes.func.isRequired,
   handleOnChange: PropTypes.func.isRequired,
   handleEstimatedHourChange: PropTypes.func.isRequired,
   handleCopy: PropTypes.func.isRequired

@@ -20,6 +20,10 @@ const EhnahcedTask = ({ task, copy }) => {
     handleOnChange({ [key]: dateTime.toISOString() });
   };
 
+  const resetDateTime = (key) => {
+    handleOnChange({ [key]: null });
+  };
+
   const handleEstimatedHourChange = (e) => {
     handleHoursChange({
       e,
@@ -47,6 +51,7 @@ const EhnahcedTask = ({ task, copy }) => {
       startedAt={task.startedAt}
       endedBy={task.endedBy}
       handleDateTimeChange={handleDateTimeChange}
+      resetDateTime={resetDateTime}
       handleOnChange={handleOnChange}
       handleEstimatedHourChange={handleEstimatedHourChange}
       handleCopy={handleCopy}

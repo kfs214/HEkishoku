@@ -7,6 +7,8 @@ const CONSTS = {
   DEFAULT_MINUTES_STEP: 15,
   CREATED: "CREATED",
   DONE: "DONE",
+  STARTED_AT: "startedAt",
+  ENDED_BY: "endedBy",
   BOX_M: 1,
   ICON_HEIGHT: 24
 };
