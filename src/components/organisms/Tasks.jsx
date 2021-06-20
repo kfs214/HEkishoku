@@ -37,8 +37,13 @@ const Tasks = ({ tasks, create, copy, creatingTask, failedToCreateTask }) => {
         onClose={hideError}
         onOpen={hideError}
       >
-        <Fab color="primary" aria-label="add" className={classes.fab}>
-          {creatingTask ? <CircularProgress /> : <Add onClick={create} />}
+        <Fab
+          onClick={creatingTask ? undefined : create}
+          color="primary"
+          aria-label="add"
+          className={classes.fab}
+        >
+          {creatingTask ? <CircularProgress /> : <Add />}
         </Fab>
       </Tooltip>
     </>
