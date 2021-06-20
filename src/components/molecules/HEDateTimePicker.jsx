@@ -1,6 +1,6 @@
 // libs
 import PropTypes from "prop-types";
-import { TimePicker } from "@material-ui/pickers";
+import { DateTimePicker } from "@material-ui/pickers";
 
 // consts
 import CONSTS from "../../consts";
@@ -13,8 +13,8 @@ const getInitialDateTime = () => {
   return dt;
 };
 
-const HETimePicker = ({ label, selectedDate, onChange }) => (
-  <TimePicker
+const HEDateTimePicker = ({ label, selectedDate, onChange }) => (
+  <DateTimePicker
     ampm={false}
     autoOk
     variant="inline"
@@ -27,14 +27,14 @@ const HETimePicker = ({ label, selectedDate, onChange }) => (
   />
 );
 
-HETimePicker.propTypes = {
+HEDateTimePicker.propTypes = {
   label: PropTypes.string.isRequired,
   selectedDate: PropTypes.string,
   onChange: PropTypes.func.isRequired
 };
 
-HETimePicker.defaultProps = {
+HEDateTimePicker.defaultProps = {
   selectedDate: null
 };
 
-export default HETimePicker;
+export default HEDateTimePicker;

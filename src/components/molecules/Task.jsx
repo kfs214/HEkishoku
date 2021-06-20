@@ -14,7 +14,7 @@ import {
 
 // components, graphql, and consts
 import TaskController from "../../containers/TaskController";
-import HETimePicker from "./HETimePicker";
+import HEDateTimePicker from "./HEDateTimePicker";
 import CONSTS from "../../consts";
 
 const Task = ({
@@ -70,7 +70,7 @@ const Task = ({
           <Grid container item sm={6}>
             <Grid item xs={6}>
               <Box m={CONSTS.BOX_M}>
-                <HETimePicker
+                <HEDateTimePicker
                   label="Start After"
                   selectedDate={startedAt}
                   onChange={(e) => {
@@ -81,7 +81,7 @@ const Task = ({
             </Grid>
             <Grid item xs={6}>
               <Box m={CONSTS.BOX_M}>
-                <HETimePicker
+                <HEDateTimePicker
                   label="End By"
                   selectedDate={endedBy}
                   onChange={(e) => {
