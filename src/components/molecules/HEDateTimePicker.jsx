@@ -19,7 +19,13 @@ const ResetDateTimeButton = ({ resetDateTime }) => (
   <Backspace onClick={resetDateTime} />
 );
 
-const HEDateTimePicker = ({ label, selectedDate, onChange, resetDateTime }) => (
+const HEDateTimePicker = ({
+  label,
+  selectedDate,
+  onChange,
+  resetDateTime,
+  disabled
+}) => (
   <DateTimePicker
     ampm={false}
     autoOk
@@ -33,10 +39,13 @@ const HEDateTimePicker = ({ label, selectedDate, onChange, resetDateTime }) => (
     InputProps={{
       endAdornment: (
         <InputAdornment position="end">
-          <ResetDateTimeButton resetDateTime={resetDateTime} />
+          <ResetDateTimeButton
+            resetDateTime={disabled ? () => undefined : resetDateTime}
+          />
         </InputAdornment>
       )
     }}
+    disabled={disabled}
   />
 );
 
@@ -48,11 +57,13 @@ HEDateTimePicker.propTypes = {
   label: PropTypes.string.isRequired,
   selectedDate: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  resetDateTime: PropTypes.func.isRequired
+  resetDateTime: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
 };
 
 HEDateTimePicker.defaultProps = {
-  selectedDate: null
+  selectedDate: null,
+  disabled: false
 };
 
 export default HEDateTimePicker;

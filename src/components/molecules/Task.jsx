@@ -63,6 +63,7 @@ const Task = ({
                       <InputAdornment position="end">h</InputAdornment>
                     )
                   }}
+                  disabled={status === CONSTS.DONE}
                   fullWidth
                 />
               </Box>
@@ -80,6 +81,7 @@ const Task = ({
                   onChange={(e) => {
                     handleDateTimeChange(CONSTS.STARTED_AT, e);
                   }}
+                  disabled={status === CONSTS.DONE}
                 />
               </Box>
             </Grid>
@@ -94,6 +96,7 @@ const Task = ({
                   onChange={(e) => {
                     handleDateTimeChange(CONSTS.ENDED_BY, e);
                   }}
+                  disabled={status === CONSTS.DONE}
                 />
               </Box>
             </Grid>
