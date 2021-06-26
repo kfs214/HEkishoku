@@ -3,12 +3,21 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 // material UI
-import { CircularProgress, Fab, Tooltip, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  CircularProgress,
+  Fab,
+  FormControlLabel,
+  Switch,
+  Tooltip,
+  makeStyles
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
 // utils and components
 import { tasksPropTypes } from "../../utils";
 import Task from "../../containers/Task";
+import CONSTS from "../../consts";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -25,11 +34,27 @@ const Tasks = ({ tasks, create, copy, creatingTask, failedToCreateTask }) => {
     setShowError(false);
   };
 
+  const [showCompleted, setShowCompleted] = useState(false);
+
   return (
     <>
-      {tasks.map((task) => (
-        <Task task={task} key={task.id} copy={copy} />
-      ))}
+      <Box display="flex" justifyContent="flex-end">
+        <FormControlLabel
+          control={
+            <Switch
+              checked={showCompleted}
+              onChange={(e) => setShowCompleted(e.target.checked)}
+            />
+          }
+          label="Show Completed"
+        />
+      </Box>
+
+      {tasks
+        .filter((task) => (showCompleted ? true : task.status !== CONSTS.DONE))
+        .map((task) => (
+          <Task task={task} key={task.id} copy={copy} />
+        ))}
 
       <Tooltip
         open={showError}
