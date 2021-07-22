@@ -27,14 +27,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Tasks = ({ tasks, create, copy, creatingTask, failedToCreateTask }) => {
+const Tasks = ({
+  tasks,
+  create,
+  copy,
+  creatingTask,
+  failedToCreateTask,
+  showCompleted,
+  setShowCompleted
+}) => {
   const classes = useStyles();
   const [showError, setShowError] = useState(failedToCreateTask);
   const hideError = () => {
     setShowError(false);
   };
-
-  const [showCompleted, setShowCompleted] = useState(false);
 
   return (
     <>
@@ -80,7 +86,9 @@ Tasks.propTypes = {
   create: PropTypes.func.isRequired,
   copy: PropTypes.func.isRequired,
   creatingTask: PropTypes.bool.isRequired,
-  failedToCreateTask: PropTypes.bool.isRequired
+  failedToCreateTask: PropTypes.bool.isRequired,
+  showCompleted: PropTypes.bool.isRequired,
+  setShowCompleted: PropTypes.func.isRequired
 };
 
 export default Tasks;

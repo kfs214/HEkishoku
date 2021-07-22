@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // apollo
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -8,6 +10,8 @@ import { createTask } from "../graphql/mutations";
 import CONSTS from "../consts";
 
 const EnhancedTasks = () => {
+  const [showCompleted, setShowCompleted] = useState(false);
+
   const {
     // data: { listTasks: { items: tasks = [] } = {} } = {}
     data: dataListTasks
@@ -65,6 +69,8 @@ const EnhancedTasks = () => {
       copy={handleCopy}
       creatingTask={creatingTask}
       failedToCreateTask={failedToCreateTask !== undefined}
+      showCompleted={showCompleted}
+      setShowCompleted={setShowCompleted}
     />
   );
 };
