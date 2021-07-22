@@ -9,10 +9,14 @@ import CONSTS from "../consts";
 
 const EnhancedTasks = () => {
   const {
-    data: { listTasks: { items: tasks = [] } = {} } = {}
+    // data: { listTasks: { items: tasks = [] } = {} } = {}
+    data: dataListTasks
     // loading,
     // error
   } = useQuery(gql(listTasks));
+  console.log({ dataListTasks });
+
+  const { listTasks: { items: tasks = [] } = {} } = dataListTasks ?? {};
 
   const [
     create,

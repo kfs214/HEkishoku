@@ -12,6 +12,7 @@ export const getTask = /* GraphQL */ `
       estimatedHour
       startedAt
       endedBy
+      index
       createdAt
       updatedAt
       owner
@@ -34,6 +35,7 @@ export const listTasks = /* GraphQL */ `
         estimatedHour
         startedAt
         endedBy
+        index
         createdAt
         updatedAt
         owner
@@ -73,6 +75,41 @@ export const listUsersSettings = /* GraphQL */ `
         lunchBreakHours
         updatedAt
         createdAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const tasksByStatus = /* GraphQL */ `
+  query TasksByStatus(
+    $status: Status
+    $index: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelTaskFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    tasksByStatus(
+      status: $status
+      index: $index
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        description
+        status
+        spentHour
+        estimatedHour
+        startedAt
+        endedBy
+        index
+        createdAt
+        updatedAt
         owner
       }
       nextToken
