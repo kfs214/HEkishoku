@@ -12,33 +12,44 @@ import CONSTS from "../consts";
 const EnhancedTasks = () => {
   const [showCompleted, setShowCompleted] = useState(false);
 
-  const tasksByStatusVariables = {
+  const listTasksVriables = {
     status: showCompleted ? CONSTS.DONE : CONSTS.CREATED
+  };
+
+  const createTasksVriables = {
+    status: CONSTS.CREATED
   };
 
   const {
     data: { tasksByStatus: { items: tasks = [] } = {} } = {}
     // loading,
     // error
-  } = useQuery(gql(tasksByStatus), { variables: tasksByStatusVariables });
+  } = useQuery(gql(tasksByStatus), { variables: listTasksVriables });
 
   const [
     create,
     { loading: creatingTask, error: failedToCreateTask }
   ] = useMutation(gql(createTask), {
-    // update(cache, { data }) {
-    //   const newTaskFromResponse = data?.createTask;
-    //   const existingTasks = cache.readQuery({ query: gql(tasksByStatus) });
-    //   cache.writeQuery({
-    //     query: gql(tasksByStatus),
-    //     data: {
-    //       tasksByStatus: {
-    //         ...existingTasks?.tasksByStatus,
-    //         items: [...existingTasks?.tasksByStatus.items, newTaskFromResponse]
-    //       }
-    //     }
-    //   });
-    // }
+    update(cache, { data }) {
+      const newTaskFromResponse = data?.createTask;
+      const existingCreatedTasks = cache.readQuery({
+        query: gql(tasksByStatus),
+        variables: createTasksVriables
+      });
+      cache.writeQuery({
+        query: gql(tasksByStatus),
+        variables: createTasksVriables,
+        data: {
+          tasksByStatus: {
+            ...existingCreatedTasks?.tasksByStatus,
+            items: [
+              ...existingCreatedTasks?.tasksByStatus.items,
+              newTaskFromResponse
+            ]
+          }
+        }
+      });
+    }
   });
 
   const initialInput = {
