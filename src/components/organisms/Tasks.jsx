@@ -56,7 +56,12 @@ const Tasks = ({
       </Box>
 
       {tasks.map((task) => (
-        <Task task={task} key={task.id} copy={copy} />
+        <Task
+          task={task}
+          key={task.id}
+          copy={copy}
+          showCompleted={showCompleted}
+        />
       ))}
 
       <Tooltip

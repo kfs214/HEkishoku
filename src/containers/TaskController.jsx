@@ -6,19 +6,25 @@ import { gql, useMutation } from "@apollo/client";
 
 // components, graphql, and consts
 import { updateTask, deleteTask } from "../graphql/mutations";
-import { listTasks } from "../graphql/queries";
+import { tasksByStatus } from "../graphql/queries";
 import TaskController from "../components/molecules/TaskController";
 import { handleTaskUpdate } from "../utils";
+import CONSTS from "../consts";
 
-const EnhancedTaskController = ({ id, status, handleCopy }) => {
+const EnhancedTaskController = ({ id, status, handleCopy, showCompleted }) => {
+  const deleteTasksVriables = {
+    status: showCompleted ? CONSTS.DONE : CONSTS.CREATED
+  };
+
   const [update] = useMutation(gql(updateTask));
   const [deleteTaskMutation, { loading: deletingTask }] = useMutation(
     gql(deleteTask),
     {
       update(cache, { data }) {
         const { id: deletedId } = data?.deleteTask ?? {};
-        const { listTasks: existingListTasks } = cache.readQuery({
-          query: gql(listTasks)
+        const { tasksByStatus: existingListTasks } = cache.readQuery({
+          query: gql(tasksByStatus),
+          variables: deleteTasksVriables
         });
 
         const newListTasks = existingListTasks.items.filter(
@@ -26,9 +32,10 @@ const EnhancedTaskController = ({ id, status, handleCopy }) => {
         );
 
         cache.writeQuery({
-          query: gql(listTasks),
+          query: gql(tasksByStatus),
+          variables: deleteTasksVriables,
           data: {
-            listTasks: {
+            tasksByStatus: {
               ...existingListTasks,
               items: newListTasks
             }
@@ -58,7 +65,8 @@ const EnhancedTaskController = ({ id, status, handleCopy }) => {
 EnhancedTaskController.propTypes = {
   id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  handleCopy: PropTypes.func.isRequired
+  handleCopy: PropTypes.func.isRequired,
+  showCompleted: PropTypes.bool.isRequired
 };
 
 export default EnhancedTaskController;
