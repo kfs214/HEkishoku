@@ -17,7 +17,6 @@ import { Add } from "@material-ui/icons";
 // utils and components
 import { tasksPropTypes } from "../../utils";
 import Task from "../../containers/Task";
-import CONSTS from "../../consts";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -56,11 +55,9 @@ const Tasks = ({
         />
       </Box>
 
-      {tasks
-        .filter((task) => (showCompleted ? true : task.status !== CONSTS.DONE))
-        .map((task) => (
-          <Task task={task} key={task.id} copy={copy} />
-        ))}
+      {tasks.map((task) => (
+        <Task task={task} key={task.id} copy={copy} />
+      ))}
 
       <Tooltip
         open={showError}
