@@ -33,7 +33,8 @@ const DeleteTask = ({ handleTaskDelete, deletingTask }) =>
 const TaskController = ({
   status,
   deletingTask,
-  handleTaskUpdate,
+  // handleTaskUpdate,
+  handleStatusUpdate,
   handleTaskDelete,
   handleCopy
 }) => (
@@ -41,9 +42,9 @@ const TaskController = ({
     <Grid item>
       <Box display="flex">
         {status === CONSTS.DONE ? (
-          <ResumeTask handleTaskUpdate={handleTaskUpdate} />
+          <ResumeTask handleTaskUpdate={handleStatusUpdate} />
         ) : (
-          <CompleteTask handleTaskUpdate={handleTaskUpdate} />
+          <CompleteTask handleTaskUpdate={handleStatusUpdate} />
         )}
         <TaskTimer />
       </Box>
@@ -75,7 +76,8 @@ DeleteTask.propTypes = {
 };
 
 TaskController.propTypes = {
-  handleTaskUpdate: PropTypes.func.isRequired,
+  // handleTaskUpdate: PropTypes.func.isRequired,
+  handleStatusUpdate: PropTypes.func.isRequired,
   handleTaskDelete: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
   deletingTask: PropTypes.bool.isRequired,
