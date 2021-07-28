@@ -14,6 +14,9 @@ import {
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
+// other libs
+import { ReactSortable } from "react-sortablejs";
+
 // utils and components
 import { tasksPropTypes } from "../../utils";
 import Task from "../../containers/Task";
@@ -30,6 +33,8 @@ const Tasks = ({
   tasks,
   create,
   copy,
+  saveOrder,
+  setSortedTasks,
   creatingTask,
   failedToCreateTask,
   showCompleted,
@@ -55,14 +60,16 @@ const Tasks = ({
         />
       </Box>
 
-      {tasks.map((task) => (
-        <Task
-          task={task}
-          key={task.id}
-          copy={copy}
-          showCompleted={showCompleted}
-        />
-      ))}
+      <ReactSortable list={tasks} setList={setSortedTasks} onEnd={saveOrder}>
+        {tasks.map((task) => (
+          <Task
+            task={task}
+            key={task.id}
+            copy={copy}
+            showCompleted={showCompleted}
+          />
+        ))}
+      </ReactSortable>
 
       <Tooltip
         open={showError}
@@ -87,6 +94,8 @@ Tasks.propTypes = {
   tasks: PropTypes.arrayOf(tasksPropTypes).isRequired,
   create: PropTypes.func.isRequired,
   copy: PropTypes.func.isRequired,
+  saveOrder: PropTypes.func.isRequired,
+  setSortedTasks: PropTypes.func.isRequired,
   creatingTask: PropTypes.bool.isRequired,
   failedToCreateTask: PropTypes.bool.isRequired,
   showCompleted: PropTypes.bool.isRequired,
