@@ -57,7 +57,7 @@ const TaskController = ({
           deletingTask={deletingTask}
         />
         <FileCopy onClick={handleCopy} />
-        <DragHandle color="disabled" />
+        <DragHandle className="sortable-handle" />
       </Box>
     </Grid>
   </Grid>

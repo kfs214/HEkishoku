@@ -60,7 +60,12 @@ const Tasks = ({
         />
       </Box>
 
-      <ReactSortable list={tasks} setList={setSortedTasks} onEnd={saveOrder}>
+      <ReactSortable
+        list={tasks}
+        setList={setSortedTasks}
+        onEnd={saveOrder}
+        handle=".sortable-handle"
+      >
         {tasks.map((task) => (
           <Task
             task={task}
