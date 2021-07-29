@@ -14,7 +14,9 @@ const EnhancedTasks = () => {
   // useState 系
   const [showCompleted, setShowCompleted] = useState(false);
 
-  const [sortedTasks, setSortedTasks] = useState([]);
+  const [tasksSortedByReactSortable, setTasksSortedByReactSortable] = useState(
+    []
+  );
 
   // Apollo系
   // variables
@@ -84,7 +86,7 @@ const EnhancedTasks = () => {
   };
 
   // 並べ替え
-  const updatedIndexes = sortedTasks
+  const updatedIndexes = tasksSortedByReactSortable
     .map((task, newIndex) => {
       const { id, index: oldIndex } = task;
 
@@ -107,7 +109,7 @@ const EnhancedTasks = () => {
       create={handleCreate}
       copy={handleCopy}
       saveOrder={handleSaveOrder}
-      setSortedTasks={setSortedTasks}
+      setSortedTasks={setTasksSortedByReactSortable}
       creatingTask={creatingTask}
       failedToCreateTask={failedToCreateTask !== undefined}
       showCompleted={showCompleted}
