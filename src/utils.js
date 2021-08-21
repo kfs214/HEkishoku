@@ -8,7 +8,9 @@ export const tasksPropTypes = PropTypes.shape({
   spentHour: PropTypes.number,
   estimatedHour: PropTypes.number,
   startedAt: PropTypes.string,
-  endedBy: PropTypes.string
+  endedBy: PropTypes.string,
+  startedBy: PropTypes.string,
+  endedAt: PropTypes.string
 });
 
 export const handleHoursChange = ({

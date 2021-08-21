@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // libs
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { addMinutes, isValid, max, min, parseISO } from "date-fns";
+import { addMinutes, format, isValid, max, min, parseISO } from "date-fns";
 
 // components, graphql, and consts
 import Tasks from "../components/organisms/Tasks";
@@ -16,6 +16,10 @@ const calcTime = ({
   referenceTime,
   isCalculatingStartedTimes
 }) => {
+  if (!referenceTime || !estimatedHour) {
+    return null;
+  }
+
   const addedMinutesPerHour = isCalculatingStartedTimes ? -60 : 60;
   const addedMinutes = addedMinutesPerHour * estimatedHour;
 
@@ -40,17 +44,17 @@ const getReferenceTime = ({
     : max(validReferenceTimes);
 };
 
-const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) =>
-  tasks
+const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) => {
+  const resultKey = isCalculatingStartedTimes
+    ? CONSTS.STARTED_BY
+    : CONSTS.ENDED_AT;
+  const referenceKey = isCalculatingStartedTimes
+    ? CONSTS.ENDED_BY
+    : CONSTS.STARTED_AT;
+
+  return tasks
     .map((task, index) => {
       const { estimatedHour } = task;
-
-      const resultKey = isCalculatingStartedTimes
-        ? CONSTS.STARTED_BY
-        : CONSTS.ENDED_AT;
-      const referenceKey = isCalculatingStartedTimes
-        ? CONSTS.ENDED_BY
-        : CONSTS.STARTED_AT;
 
       const referenceTime = getReferenceTime({
         referenceTimes: [tasks[index - 1]?.[resultKey], task[referenceKey]],
@@ -66,8 +70,18 @@ const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) =>
 
       return { ...task, [resultKey]: calculatedTime };
     })
-    .slice()
+    .map((task) => {
+      const formattedTime = task[resultKey]
+        ? format(task[resultKey], "H:mm E MMM d y")
+        : "...";
+
+      return {
+        ...task,
+        [resultKey]: formattedTime
+      };
+    })
     .reverse();
+};
 
 const getCalculatedTasks = (tasks) => {
   const tasksWithEndedAt = calcTimes({ tasks });

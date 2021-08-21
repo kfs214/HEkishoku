@@ -9,7 +9,8 @@ import {
   CardContent,
   Grid,
   InputAdornment,
-  TextField
+  TextField,
+  Typography
 } from "@material-ui/core";
 
 // components, graphql, and consts
@@ -24,6 +25,8 @@ const Task = ({
   estimatedHour,
   startedAt,
   endedBy,
+  startedBy,
+  endedAt,
   handleDateTimeChange,
   resetDateTime,
   handleOnChange,
@@ -108,6 +111,27 @@ const Task = ({
             </Grid>
           </Grid>
         </Grid>
+
+        <Box m={CONSTS.BOX_M}>
+          <Grid container>
+            <Grid container item sm={6}>
+              <Box width={80}>
+                <Typography variant="body1">Ended At</Typography>
+              </Box>
+              <Box>
+                <Typography variant="body1">{endedAt}</Typography>
+              </Box>
+            </Grid>
+            <Grid container item sm={6}>
+              <Box width={80}>
+                <Typography variant="body1">Started By</Typography>
+              </Box>
+              <Box>
+                <Typography variant="body1">{startedBy}</Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
       </CardContent>
     </Card>
   </Box>
@@ -120,6 +144,8 @@ Task.propTypes = {
   title: PropTypes.string,
   startedAt: PropTypes.string,
   endedBy: PropTypes.string,
+  startedBy: PropTypes.string.isRequired,
+  endedAt: PropTypes.string.isRequired,
   handleDateTimeChange: PropTypes.func.isRequired,
   resetDateTime: PropTypes.func.isRequired,
   handleOnChange: PropTypes.func.isRequired,
