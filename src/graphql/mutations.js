@@ -15,6 +15,7 @@ export const createTask = /* GraphQL */ `
       estimatedHour
       startedAt
       endedBy
+      index
       createdAt
       updatedAt
       owner
@@ -35,6 +36,7 @@ export const updateTask = /* GraphQL */ `
       estimatedHour
       startedAt
       endedBy
+      index
       createdAt
       updatedAt
       owner
@@ -55,6 +57,7 @@ export const deleteTask = /* GraphQL */ `
       estimatedHour
       startedAt
       endedBy
+      index
       createdAt
       updatedAt
       owner

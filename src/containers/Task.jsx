@@ -9,7 +9,7 @@ import { updateTask } from "../graphql/mutations";
 import Task from "../components/molecules/Task";
 import { tasksPropTypes, handleHoursChange, handleTaskUpdate } from "../utils";
 
-const EhnahcedTask = ({ task, copy }) => {
+const EhnahcedTask = ({ task, copy, showCompleted }) => {
   const [update] = useMutation(gql(updateTask));
 
   const handleOnChange = (input) => {
@@ -55,13 +55,15 @@ const EhnahcedTask = ({ task, copy }) => {
       handleOnChange={handleOnChange}
       handleEstimatedHourChange={handleEstimatedHourChange}
       handleCopy={handleCopy}
+      showCompleted={showCompleted}
     />
   );
 };
 
 EhnahcedTask.propTypes = {
   task: tasksPropTypes.isRequired,
-  copy: PropTypes.func.isRequired
+  copy: PropTypes.func.isRequired,
+  showCompleted: PropTypes.bool.isRequired
 };
 
 export default EhnahcedTask;

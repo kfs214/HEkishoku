@@ -28,12 +28,18 @@ const Task = ({
   resetDateTime,
   handleOnChange,
   handleEstimatedHourChange,
-  handleCopy
+  handleCopy,
+  showCompleted
 }) => (
   <Box mb={CONSTS.BOX_M}>
     <Card>
       <CardActions>
-        <TaskController id={id} status={status} handleCopy={handleCopy} />
+        <TaskController
+          id={id}
+          status={status}
+          handleCopy={handleCopy}
+          showCompleted={showCompleted}
+        />
       </CardActions>
       <CardContent>
         <Grid container>
@@ -63,6 +69,7 @@ const Task = ({
                       <InputAdornment position="end">h</InputAdornment>
                     )
                   }}
+                  disabled={status === CONSTS.DONE}
                   fullWidth
                 />
               </Box>
@@ -80,6 +87,7 @@ const Task = ({
                   onChange={(e) => {
                     handleDateTimeChange(CONSTS.STARTED_AT, e);
                   }}
+                  disabled={status === CONSTS.DONE}
                 />
               </Box>
             </Grid>
@@ -94,6 +102,7 @@ const Task = ({
                   onChange={(e) => {
                     handleDateTimeChange(CONSTS.ENDED_BY, e);
                   }}
+                  disabled={status === CONSTS.DONE}
                 />
               </Box>
             </Grid>
@@ -115,7 +124,8 @@ Task.propTypes = {
   resetDateTime: PropTypes.func.isRequired,
   handleOnChange: PropTypes.func.isRequired,
   handleEstimatedHourChange: PropTypes.func.isRequired,
-  handleCopy: PropTypes.func.isRequired
+  handleCopy: PropTypes.func.isRequired,
+  showCompleted: PropTypes.bool.isRequired
 };
 
 Task.defaultProps = {

@@ -15,6 +15,11 @@ type Task
         mutations: null
       }
     ]
+  )
+  @key(
+    name: "tasksByStatus"
+    fields: ["status", "index"]
+    queryField: "tasksByStatus"
   ) {
   id: ID!
   title: String
@@ -24,6 +29,7 @@ type Task
   estimatedHour: Float
   startedAt: AWSDateTime
   endedBy: AWSDateTime
+  index: Int
 }
 
 type UsersSetting

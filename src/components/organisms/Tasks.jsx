@@ -3,8 +3,19 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 // material UI
-import { CircularProgress, Fab, Tooltip, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  CircularProgress,
+  Fab,
+  FormControlLabel,
+  Switch,
+  Tooltip,
+  makeStyles
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
+
+// other libs
+import { ReactSortable } from "react-sortablejs";
 
 // utils and components
 import { tasksPropTypes } from "../../utils";
@@ -18,7 +29,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Tasks = ({ tasks, create, copy, creatingTask, failedToCreateTask }) => {
+const Tasks = ({
+  tasks,
+  create,
+  copy,
+  saveOrder,
+  setSortedTasks,
+  creatingTask,
+  failedToCreateTask,
+  showCompleted,
+  setShowCompleted
+}) => {
   const classes = useStyles();
   const [showError, setShowError] = useState(failedToCreateTask);
   const hideError = () => {
@@ -27,9 +48,33 @@ const Tasks = ({ tasks, create, copy, creatingTask, failedToCreateTask }) => {
 
   return (
     <>
-      {tasks.map((task) => (
-        <Task task={task} key={task.id} copy={copy} />
-      ))}
+      <Box display="flex" justifyContent="flex-end">
+        <FormControlLabel
+          control={
+            <Switch
+              checked={showCompleted}
+              onChange={(e) => setShowCompleted(e.target.checked)}
+            />
+          }
+          label="Show Completed"
+        />
+      </Box>
+
+      <ReactSortable
+        list={tasks}
+        setList={setSortedTasks}
+        onEnd={saveOrder}
+        handle=".sortable-handle"
+      >
+        {tasks.map((task) => (
+          <Task
+            task={task}
+            key={task.id}
+            copy={copy}
+            showCompleted={showCompleted}
+          />
+        ))}
+      </ReactSortable>
 
       <Tooltip
         open={showError}
@@ -54,8 +99,12 @@ Tasks.propTypes = {
   tasks: PropTypes.arrayOf(tasksPropTypes).isRequired,
   create: PropTypes.func.isRequired,
   copy: PropTypes.func.isRequired,
+  saveOrder: PropTypes.func.isRequired,
+  setSortedTasks: PropTypes.func.isRequired,
   creatingTask: PropTypes.bool.isRequired,
-  failedToCreateTask: PropTypes.bool.isRequired
+  failedToCreateTask: PropTypes.bool.isRequired,
+  showCompleted: PropTypes.bool.isRequired,
+  setShowCompleted: PropTypes.func.isRequired
 };
 
 export default Tasks;
