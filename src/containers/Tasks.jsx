@@ -11,12 +11,15 @@ import { createTask, updateTask } from "../graphql/mutations";
 import CONSTS from "../consts";
 import { handleTaskUpdate } from "../utils";
 
+const isNumber = (value) =>
+  !Number.isNaN(value) && value !== undefined && value !== null;
+
 const calcTime = ({
   estimatedHour,
   referenceTime,
   isCalculatingStartedTimes
 }) => {
-  if (!referenceTime || !estimatedHour) {
+  if (!referenceTime || !isNumber(estimatedHour)) {
     return null;
   }
 
@@ -52,24 +55,32 @@ const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) => {
     ? CONSTS.ENDED_BY
     : CONSTS.STARTED_AT;
 
+  const reducer = (tasksWithCalculatedTimes, task, currentIndex) => {
+    const { estimatedHour } = task;
+
+    const referenceTime = getReferenceTime({
+      referenceTimes: [
+        tasksWithCalculatedTimes[currentIndex - 1]?.[resultKey]?.toISOString(),
+        task[referenceKey]
+      ],
+      isCalculatingStartedTimes,
+      index: currentIndex
+    });
+
+    const calculatedTime = calcTime({
+      estimatedHour,
+      referenceTime,
+      isCalculatingStartedTimes
+    });
+
+    return [
+      ...tasksWithCalculatedTimes,
+      { ...task, [resultKey]: calculatedTime }
+    ];
+  };
+
   return tasks
-    .map((task, index) => {
-      const { estimatedHour } = task;
-
-      const referenceTime = getReferenceTime({
-        referenceTimes: [tasks[index - 1]?.[resultKey], task[referenceKey]],
-        isCalculatingStartedTimes,
-        index
-      });
-
-      const calculatedTime = calcTime({
-        estimatedHour,
-        referenceTime,
-        isCalculatingStartedTimes
-      });
-
-      return { ...task, [resultKey]: calculatedTime };
-    })
+    .reduce(reducer, [])
     .map((task) => {
       const formattedTime = task[resultKey]
         ? format(task[resultKey], "H:mm E MMM d y")
