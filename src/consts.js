@@ -9,8 +9,11 @@ const CONSTS = {
   DONE: "DONE",
   STARTED_AT: "startedAt",
   ENDED_BY: "endedBy",
+  STARTED_BY: "startedBy",
+  ENDED_AT: "endedAt",
   BOX_M: 1,
-  ICON_HEIGHT: 24
+  ICON_HEIGHT: 24,
+  DATE_TIME_FORMAT: "H:mm E MMM d y"
 };
 
 export default CONSTS;

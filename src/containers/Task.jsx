@@ -50,6 +50,8 @@ const EhnahcedTask = ({ task, copy, showCompleted }) => {
       estimatedHour={String(task.estimatedHour ?? "")}
       startedAt={task.startedAt}
       endedBy={task.endedBy}
+      startedBy={task.startedBy}
+      endedAt={task.endedAt}
       handleDateTimeChange={handleDateTimeChange}
       resetDateTime={resetDateTime}
       handleOnChange={handleOnChange}
