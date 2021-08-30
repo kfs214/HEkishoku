@@ -12,7 +12,8 @@ const CONSTS = {
   STARTED_BY: "startedBy",
   ENDED_AT: "endedAt",
   BOX_M: 1,
-  ICON_HEIGHT: 24
+  ICON_HEIGHT: 24,
+  DATE_TIME_FORMAT: "H:mm E MMM d y"
 };
 
 export default CONSTS;

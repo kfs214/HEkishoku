@@ -36,6 +36,7 @@ const HEDateTimePicker = ({
     initialFocusedDate={getInitialDateTime()}
     onChange={onChange}
     fullWidth
+    format={CONSTS.DATE_TIME_FORMAT}
     InputProps={{
       endAdornment: (
         <InputAdornment position="end">

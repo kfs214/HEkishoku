@@ -83,7 +83,7 @@ const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) => {
     .reduce(reducer, [])
     .map((task) => {
       const formattedTime = task[resultKey]
-        ? format(task[resultKey], "H:mm E MMM d y")
+        ? format(task[resultKey], CONSTS.DATE_TIME_FORMAT)
         : "...";
 
       return {
