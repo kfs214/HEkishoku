@@ -15,6 +15,7 @@ import SignUp from "./components/templates/SignUp";
 
 const App = () => {
   const [userSub, updateUserSub] = useState(null);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -35,11 +36,19 @@ const App = () => {
 
   return (
     <>
-      <HEAppBar isLoggedIn={!!userSub} userSub={userSub} />
+      <HEAppBar
+        isLoggedIn={!!userSub}
+        userSub={userSub}
+        isEditingTitle={isEditingTitle}
+      />
       <Toolbar />
       <Container>
         <AmplifyAuthenticator>
-          {userSub ? <LoggedIn /> : <SignUp />}
+          {userSub ? (
+            <LoggedIn setIsEditingTitle={setIsEditingTitle} />
+          ) : (
+            <SignUp />
+          )}
         </AmplifyAuthenticator>
       </Container>
     </>

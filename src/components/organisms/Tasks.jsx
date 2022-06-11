@@ -10,7 +10,7 @@ import {
   FormControlLabel,
   Switch,
   Tooltip,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     position: "fixed",
     bottom: theme.spacing(2),
-    right: theme.spacing(2)
-  }
+    right: theme.spacing(2),
+  },
 }));
 
 const Tasks = ({
@@ -38,7 +38,8 @@ const Tasks = ({
   creatingTask,
   failedToCreateTask,
   showCompleted,
-  setShowCompleted
+  setShowCompleted,
+  setIsEditingTitle,
 }) => {
   const classes = useStyles();
   const [showError, setShowError] = useState(failedToCreateTask);
@@ -72,6 +73,7 @@ const Tasks = ({
             key={task.id}
             copy={copy}
             showCompleted={showCompleted}
+            setIsEditingTitle={setIsEditingTitle}
           />
         ))}
       </ReactSortable>
@@ -104,7 +106,8 @@ Tasks.propTypes = {
   creatingTask: PropTypes.bool.isRequired,
   failedToCreateTask: PropTypes.bool.isRequired,
   showCompleted: PropTypes.bool.isRequired,
-  setShowCompleted: PropTypes.func.isRequired
+  setShowCompleted: PropTypes.func.isRequired,
+  setIsEditingTitle: PropTypes.func.isRequired,
 };
 
 export default Tasks;

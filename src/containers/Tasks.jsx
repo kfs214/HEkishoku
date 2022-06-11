@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 // libs
@@ -17,7 +18,7 @@ const isNumber = (value) =>
 const calcTime = ({
   estimatedHour,
   referenceTime,
-  isCalculatingStartedTimes
+  isCalculatingStartedTimes,
 }) => {
   if (!referenceTime || !isNumber(estimatedHour)) {
     return null;
@@ -32,7 +33,7 @@ const calcTime = ({
 const getReferenceTime = ({
   referenceTimes,
   isCalculatingStartedTimes = false,
-  index
+  index,
 }) => {
   const validReferenceTimes = referenceTimes
     .map((time) => parseISO(time))
@@ -61,21 +62,21 @@ const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) => {
     const referenceTime = getReferenceTime({
       referenceTimes: [
         tasksWithCalculatedTimes[currentIndex - 1]?.[resultKey]?.toISOString(),
-        task[referenceKey]
+        task[referenceKey],
       ],
       isCalculatingStartedTimes,
-      index: currentIndex
+      index: currentIndex,
     });
 
     const calculatedTime = calcTime({
       estimatedHour,
       referenceTime,
-      isCalculatingStartedTimes
+      isCalculatingStartedTimes,
     });
 
     return [
       ...tasksWithCalculatedTimes,
-      { ...task, [resultKey]: calculatedTime }
+      { ...task, [resultKey]: calculatedTime },
     ];
   };
 
@@ -88,7 +89,7 @@ const calcTimes = ({ tasks, isCalculatingStartedTimes = false }) => {
 
       return {
         ...task,
-        [resultKey]: formattedTime
+        [resultKey]: formattedTime,
       };
     })
     .reverse();
@@ -98,7 +99,7 @@ const getCalculatedTasks = (tasks) => {
   const tasksWithEndedAt = calcTimes({ tasks });
   const tasksWithStartedBy = calcTimes({
     tasks: tasksWithEndedAt,
-    isCalculatingStartedTimes: true
+    isCalculatingStartedTimes: true,
   });
 
   const tasksEntries = tasksWithStartedBy.map((task) => {
@@ -128,7 +129,7 @@ const getShownTasks = (tasks) => {
   return tasksWithTimes;
 };
 
-const EnhancedTasks = () => {
+const EnhancedTasks = ({ setIsEditingTitle }) => {
   // useState 系
   const [showCompleted, setShowCompleted] = useState(false);
 
@@ -139,45 +140,43 @@ const EnhancedTasks = () => {
   // Apollo系
   // variables
   const listTasksVriables = {
-    status: showCompleted ? CONSTS.DONE : CONSTS.CREATED
+    status: showCompleted ? CONSTS.DONE : CONSTS.CREATED,
   };
 
   const createTasksVriables = {
-    status: CONSTS.CREATED
+    status: CONSTS.CREATED,
   };
 
   // queries and mutations
   const {
-    data: { tasksByStatus: { items: tasks = [] } = {} } = {}
+    data: { tasksByStatus: { items: tasks = [] } = {} } = {},
     // loading,
     // error
   } = useQuery(gql(tasksByStatus), { variables: listTasksVriables });
 
-  const [
-    create,
-    { loading: creatingTask, error: failedToCreateTask }
-  ] = useMutation(gql(createTask), {
-    update(cache, { data }) {
-      const newTaskFromResponse = data?.createTask;
-      const existingCreatedTasks = cache.readQuery({
-        query: gql(tasksByStatus),
-        variables: createTasksVriables
-      });
-      cache.writeQuery({
-        query: gql(tasksByStatus),
-        variables: createTasksVriables,
-        data: {
-          tasksByStatus: {
-            ...existingCreatedTasks?.tasksByStatus,
-            items: [
-              ...existingCreatedTasks?.tasksByStatus.items,
-              newTaskFromResponse
-            ]
-          }
-        }
-      });
-    }
-  });
+  const [create, { loading: creatingTask, error: failedToCreateTask }] =
+    useMutation(gql(createTask), {
+      update(cache, { data }) {
+        const newTaskFromResponse = data?.createTask;
+        const existingCreatedTasks = cache.readQuery({
+          query: gql(tasksByStatus),
+          variables: createTasksVriables,
+        });
+        cache.writeQuery({
+          query: gql(tasksByStatus),
+          variables: createTasksVriables,
+          data: {
+            tasksByStatus: {
+              ...existingCreatedTasks?.tasksByStatus,
+              items: [
+                ...existingCreatedTasks?.tasksByStatus.items,
+                newTaskFromResponse,
+              ],
+            },
+          },
+        });
+      },
+    });
 
   const [update] = useMutation(gql(updateTask));
 
@@ -185,7 +184,7 @@ const EnhancedTasks = () => {
   const initialInput = {
     title: "",
     status: CONSTS.CREATED,
-    index: tasks?.length
+    index: tasks?.length,
   };
 
   const handleCreate = () => {
@@ -197,9 +196,9 @@ const EnhancedTasks = () => {
       variables: {
         input: {
           ...initialInput,
-          ...input
-        }
-      }
+          ...input,
+        },
+      },
     });
   };
 
@@ -230,8 +229,13 @@ const EnhancedTasks = () => {
       failedToCreateTask={failedToCreateTask !== undefined}
       showCompleted={showCompleted}
       setShowCompleted={setShowCompleted}
+      setIsEditingTitle={setIsEditingTitle}
     />
   );
+};
+
+EnhancedTasks.propTypes = {
+  setIsEditingTitle: PropTypes.func.isRequired,
 };
 
 export default EnhancedTasks;

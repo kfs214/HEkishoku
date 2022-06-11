@@ -5,8 +5,10 @@ import {
   Typography,
   makeStyles,
   Slide,
-  useScrollTrigger
+  useScrollTrigger,
 } from "@material-ui/core";
+import { Save } from "@material-ui/icons";
+
 import { useState } from "react";
 import CONSTS from "../../consts";
 import FunChan from "../../assets/funchan.svg";
@@ -15,15 +17,15 @@ import Settings from "../../containers/Settings";
 
 const useStyles = makeStyles(() => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   logo: {
     maxWidth: 40,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 }));
 
 const HideOnScroll = ({ children }) => {
@@ -33,15 +35,16 @@ const HideOnScroll = ({ children }) => {
 };
 
 HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
-const HEAppBar = ({ isLoggedIn, userSub = null }) => {
+const HEAppBar = ({ isLoggedIn, userSub = null, isEditingTitle }) => {
   const classes = useStyles();
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const contentsUnderLogInCondition = isLoggedIn ? (
     <>
+      {isEditingTitle && <Save />}
       <UserMenu setSettingsOpen={setSettingsOpen} />
       <Settings
         userSub={userSub}
@@ -68,11 +71,12 @@ const HEAppBar = ({ isLoggedIn, userSub = null }) => {
 
 HEAppBar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  userSub: PropTypes.string
+  userSub: PropTypes.string,
+  isEditingTitle: PropTypes.bool.isRequired,
 };
 
 HEAppBar.defaultProps = {
-  userSub: null
+  userSub: null,
 };
 
 export default HEAppBar;
