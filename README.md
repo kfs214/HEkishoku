@@ -40,6 +40,12 @@ at project root: HEkishoku\
 `yarn`\
 `yarn start`
 
+# Development with AWS Amplify
+
+## Typical workflows
+
+[Typical workflows](https://docs.amplify.aws/cli/start/workflows/)
+
 ---
 
 ---
