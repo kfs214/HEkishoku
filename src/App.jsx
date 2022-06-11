@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // material UI
 import { Container, Toolbar } from "@material-ui/core";
@@ -33,6 +33,23 @@ const App = () => {
       }
     });
   }, [userSub]);
+
+  const handleBeforeUnloadEvent = useCallback(
+    (event) => {
+      if (isEditingTitle) {
+        // eslint-disable-next-line no-param-reassign
+        event.returnValue = "";
+      }
+    },
+    [isEditingTitle]
+  );
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnloadEvent);
+
+    return () =>
+      window.removeEventListener("beforeunload", handleBeforeUnloadEvent);
+  }, [handleBeforeUnloadEvent]);
 
   return (
     <>
