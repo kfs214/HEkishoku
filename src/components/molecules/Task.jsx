@@ -10,7 +10,7 @@ import {
   Grid,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
 // components, graphql, and consts
@@ -32,7 +32,8 @@ const Task = ({
   handleOnChange,
   handleEstimatedHourChange,
   handleCopy,
-  showCompleted
+  showCompleted,
+  setIsEditingTitle,
 }) => (
   <Box mb={CONSTS.BOX_M}>
     <Card>
@@ -51,9 +52,13 @@ const Task = ({
               <Box m={CONSTS.BOX_M}>
                 <TextField
                   label="Task Name"
-                  value={title}
-                  onChange={(e) => {
+                  defaultValue={title}
+                  onBlur={(e) => {
                     handleOnChange({ title: e.target.value });
+                    setIsEditingTitle(false);
+                  }}
+                  onChange={() => {
+                    setIsEditingTitle(true);
                   }}
                   aria-describedby="task-name"
                   fullWidth
@@ -70,7 +75,7 @@ const Task = ({
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">h</InputAdornment>
-                    )
+                    ),
                   }}
                   disabled={status === CONSTS.DONE}
                   fullWidth
@@ -151,13 +156,14 @@ Task.propTypes = {
   handleOnChange: PropTypes.func.isRequired,
   handleEstimatedHourChange: PropTypes.func.isRequired,
   handleCopy: PropTypes.func.isRequired,
-  showCompleted: PropTypes.bool.isRequired
+  showCompleted: PropTypes.bool.isRequired,
+  setIsEditingTitle: PropTypes.func.isRequired,
 };
 
 Task.defaultProps = {
   title: null,
   startedAt: null,
-  endedBy: null
+  endedBy: null,
 };
 
 export default Task;

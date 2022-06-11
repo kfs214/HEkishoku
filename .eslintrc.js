@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   parserOptions: { ecmaVersion: 2021 },
   extends: [
@@ -10,40 +10,34 @@ module.exports = {
     "airbnb/hooks",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "prettier"
+    "prettier",
   ],
   plugins: ["import", "jsx-a11y", "react", "react-hooks"],
   root: true,
   rules: {
     // occur error in `import React from 'react'` with react-scripts 4.0.1
     "no-use-before-define": "off",
-    "comma-dangle": [
-      "error",
-      {
-        arrays: "only-multiline",
-        objects: "only-multiline"
-      }
-    ],
+    "comma-dangle": ["error", "only-multiline"],
     "lines-between-class-members": [
       "error",
       "always",
       {
-        exceptAfterSingleLine: true
-      }
+        exceptAfterSingleLine: true,
+      },
     ],
     "no-void": [
       "error",
       {
-        allowAsStatement: true
-      }
+        allowAsStatement: true,
+      },
     ],
     "padding-line-between-statements": [
       "error",
       {
         blankLine: "always",
         prev: "*",
-        next: "return"
-      }
+        next: "return",
+      },
     ],
     "import/extensions": [
       "error",
@@ -52,38 +46,38 @@ module.exports = {
         js: "never",
         jsx: "never",
         ts: "never",
-        tsx: "never"
-      }
+        tsx: "never",
+      },
     ],
     "react/jsx-filename-extension": [
       "error",
       {
-        extensions: [".jsx", ".tsx"]
-      }
+        extensions: [".jsx", ".tsx"],
+      },
     ],
     "react/jsx-props-no-spreading": [
       "error",
       {
         html: "enforce",
         custom: "enforce",
-        explicitSpread: "ignore"
-      }
+        explicitSpread: "ignore",
+      },
     ],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
   },
   overrides: [
     {
       files: ["*.tsx"],
       rules: {
-        "react/prop-types": "off"
-      }
-    }
+        "react/prop-types": "off",
+      },
+    },
   ],
   settings: {
     "import/resolver": {
       node: {
-        paths: ["src"]
-      }
-    }
-  }
+        paths: ["src"],
+      },
+    },
+  },
 };

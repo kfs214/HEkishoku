@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // material UI
 import { Container, Toolbar } from "@material-ui/core";
@@ -15,6 +15,7 @@ import SignUp from "./components/templates/SignUp";
 
 const App = () => {
   const [userSub, updateUserSub] = useState(null);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -33,13 +34,38 @@ const App = () => {
     });
   }, [userSub]);
 
+  const handleBeforeUnloadEvent = useCallback(
+    (event) => {
+      if (isEditingTitle) {
+        // eslint-disable-next-line no-param-reassign
+        event.returnValue = "";
+      }
+    },
+    [isEditingTitle]
+  );
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnloadEvent);
+
+    return () =>
+      window.removeEventListener("beforeunload", handleBeforeUnloadEvent);
+  }, [handleBeforeUnloadEvent]);
+
   return (
     <>
-      <HEAppBar isLoggedIn={!!userSub} userSub={userSub} />
+      <HEAppBar
+        isLoggedIn={!!userSub}
+        userSub={userSub}
+        isEditingTitle={isEditingTitle}
+      />
       <Toolbar />
       <Container>
         <AmplifyAuthenticator>
-          {userSub ? <LoggedIn /> : <SignUp />}
+          {userSub ? (
+            <LoggedIn setIsEditingTitle={setIsEditingTitle} />
+          ) : (
+            <SignUp />
+          )}
         </AmplifyAuthenticator>
       </Container>
     </>
