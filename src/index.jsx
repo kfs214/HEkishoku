@@ -9,12 +9,12 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
 // Apollo
-import { ApolloProvider } from "@apollo/react-hooks";
 import {
   ApolloLink,
   createHttpLink,
   InMemoryCache,
-  ApolloClient
+  ApolloClient,
+  ApolloProvider,
 } from "@apollo/client";
 
 // Amplify
@@ -42,12 +42,12 @@ const client = new ApolloClient({
       auth: {
         type: awsExports.aws_appsync_authenticationType,
         jwtToken: async () =>
-          (await Auth.currentSession()).getIdToken().getJwtToken()
-      }
+          (await Auth.currentSession()).getIdToken().getJwtToken(),
+      },
     }),
-    createHttpLink({ uri: url })
+    createHttpLink({ uri: url }),
   ]),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
